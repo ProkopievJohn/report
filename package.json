@@ -1,0 +1,24 @@
+{
+  "name": "report",
+  "version": "0.0.1",
+  "description": "admin panel for prokopiev",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ProkopievJohn/report.git"
+  },
+  "keywords": [
+    "React",
+    "Redux",
+    "Webpack"
+  ],
+  "author": "Prokopiev Ivan <ProkopievJohn@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ProkopievJohn/report/issues"
+  },
+  "homepage": "https://github.com/ProkopievJohn/report#readme"
+}
