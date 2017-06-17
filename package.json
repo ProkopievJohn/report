@@ -1,24 +1,38 @@
 {
-  "name": "report",
-  "version": "0.0.1",
-  "description": "admin panel for prokopiev",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ProkopievJohn/report.git"
-  },
-  "keywords": [
-    "React",
-    "Redux",
-    "Webpack"
-  ],
-  "author": "Prokopiev Ivan <ProkopievJohn@gmail.com>",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/ProkopievJohn/report/issues"
-  },
-  "homepage": "https://github.com/ProkopievJohn/report#readme"
+	"name": "report",
+	"version": "0.0.1",
+	"description": "admin panel for prokopiev",
+	"main": "index.js",
+	"scripts": {
+		"start": "npm run build",
+		"build": "webpack -d && webpack-dev-server --inline --hot",
+		"build:prod": ""
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/ProkopievJohn/report.git"
+	},
+	"keywords": [
+		"React",
+		"Redux",
+		"Webpack"
+	],
+	"author": "Prokopiev Ivan <ProkopievJohn@gmail.com>",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/ProkopievJohn/report/issues"
+	},
+	"homepage": "https://github.com/ProkopievJohn/report#readme",
+	"dependencies": {
+		"react": "^15.6.1",
+		"react-dom": "^15.6.1"
+	},
+	"devDependencies": {
+		"babel-core": "^6.25.0",
+		"babel-loader": "^7.0.0",
+		"babel-preset-env": "^1.5.2",
+		"babel-preset-react": "^6.24.1",
+		"webpack": "^2.6.1",
+		"webpack-dev-server": "^2.4.5"
+	}
 }
