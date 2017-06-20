@@ -24,10 +24,11 @@ const common = merge([
 					exclude: /node_modules/
 				},
 				{
-					test: /\.js$/,
+					test: /\.jsx?$/,
 					loader: 'babel-loader',
+					exclude: /node_modules/,
 					query: {
-						presets: ['react', 'env']
+						presets: ['stage-1', 'env', 'react']
 					}
 				},
 				{
