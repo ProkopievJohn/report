@@ -8,8 +8,11 @@ import {
 	userApi,
 	adminApi
 } from './api';
+import { connect } from './db';
 
-export default () => {
+export default async () => {
+	await connect();
+
 	const app = new Koa();
 
 	app

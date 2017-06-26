@@ -1,6 +1,6 @@
 export default {
 	db: {
-		uri: 'mongodb://localhost:27017/freiraum',
+		uri: 'mongodb://localhost:27017/report',
 		options: {}
 	},
 	jwt: {
