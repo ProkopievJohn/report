@@ -25,6 +25,7 @@
 	"homepage": "https://github.com/ProkopievJohn/report#readme",
 	"dependencies": {
 		"axios": "^0.16.2",
+		"bcrypt-nodejs": "0.0.3",
 		"jsonwebtoken": "^7.4.1",
 		"koa": "^2.3.0",
 		"koa-body-parser": "^1.1.2",

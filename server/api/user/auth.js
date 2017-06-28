@@ -1,7 +1,7 @@
 import Router from 'koa-router';
 import JWT from 'jsonwebtoken';
 import config from '../../../config/server';
-import UserCollection from '../../db/users';
+import UserCollection from '../../services';
 
 export const login = async (ctx, next) => {
 	const {email, password} = ctx.request.body;
