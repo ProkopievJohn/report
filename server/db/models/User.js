@@ -4,9 +4,26 @@ import bcrypt from 'bcrypt-nodejs';
 import Counter from '../models/Counter';
 
 let UserSchema = new Schema({
-	userId: {type: String, unique: true, es_indexed: true},
-	username: { type: String, required: true, unique: true, lowercase: true },
-	password: { type: String, required: true }
+	userId: {
+		type: String,
+		unique: true,
+		es_indexed: true
+	},
+	username: {
+		type: String,
+		required: true,
+		unique: true,
+		lowercase: true
+	},
+	password: {
+		type: String,
+		required: true
+	},
+	email: {
+		type: String,
+		required: true,
+		unique: true
+	}
 }, {
 	strict: true,
 	autoIndex: true
