@@ -1,4 +1,4 @@
-import { Schema, model } from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
 
 let CounterSchema = new Schema({
 	objectName: {type: String, required: true, index: true, unique: true},
@@ -7,8 +7,8 @@ let CounterSchema = new Schema({
 	strict: true
 });
 
-CounterSchema.statics.increment = async (objectName, callback) => {
-	await this.collection.findAndModify({objectName: objectName}, [], {$inc: {next: 1}}, callback);
+CounterSchema.statics.increment = async objectName => {
+	await this.collection.findAndModify({objectName: objectName}, [], {$inc: {next: 1}});
 };
 
-export default model('Counter', CounterSchema);
+export default mongoose.model('Counter', CounterSchema);

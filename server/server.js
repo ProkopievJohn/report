@@ -24,8 +24,13 @@ export default async () => {
 		await next();
 		const execution = new Date() - start;
 		if (execution > 400) {
-			console.warn(`[INFO]Long execution ${execution}ms ${ctx.url} ${ctx.method}`); // eslint-disable-line no-console;
+			console.warn(`[INFO] Long execution ${execution}ms. URL: ${ctx.url}; METHOD: ${ctx.method}`); // eslint-disable-line no-console;
 		}
+	});
+
+	app.use((ctx, next) => {
+		console.log(`[INFO] To URL: ${ctx.url}; With method: ${ctx.method}; From IP: ${ctx.ip};`);
+		return next();
 	});
 
 	app.use(async (ctx, next) => {
@@ -51,7 +56,8 @@ export default async () => {
 
 	http.createServer(app.callback()).listen(config.port, config.host, err => {
 		if (err) {
-			console.error(`Error to start server on port ${config.port} on host ${config.host}`, err); // eslint-disable-line no-console;
+			console.error(`Error to start server on  http://${config.host}:${config.port}`, err); // eslint-disable-line no-console;
 		}
+		console.error(`[INFO] Start server on http://${config.host}:${config.port}`); // eslint-disable-line no-console;
 	});
 };

@@ -1,7 +1,10 @@
-import { Schema, model } from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
 import bcrypt from 'bcrypt-nodejs';
 
 import Counter from '../models/Counter';
+
+export const ROLE_ADMIN = 1;
+export const ROLE_USER = 2;
 
 let UserSchema = new Schema({
 	userId: {
@@ -17,12 +20,23 @@ let UserSchema = new Schema({
 	},
 	password: {
 		type: String,
-		required: true
+		required: true,
+		select: false
 	},
 	email: {
-		type: String,
-		required: true,
-		unique: true
+		address: {
+			type: String,
+			required: true,
+			unique: true
+		},
+		verified: {
+			type: Boolean,
+			default: false
+		}
+	},
+	role: {
+		type: Number,
+		required: true
 	}
 }, {
 	strict: true,
@@ -61,4 +75,4 @@ UserSchema.methods.passwordMatches = async plainText => {
 	}
 };
 
-export default model('User', UserSchema);
+export default mongoose.model('User', UserSchema);

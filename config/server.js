@@ -26,5 +26,5 @@ export default {
 		errors: [],
 		messages: [],
 		info: []
-    }
+	}
 };

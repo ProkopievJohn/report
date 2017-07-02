@@ -28,11 +28,12 @@ module.exports = {
             "error",
             "single"
         ],
+        "import/no-duplicates": [0],
         "semi": [
             "error",
             "always"
         ],
-        "react/jsx-indent": ["error", 'tab']
+        "react/jsx-indent": ["error", 'tab'],
         // "react/jsx-indent": 0
     },
     "extends": ["standard", "standard-react"],

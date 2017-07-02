@@ -1,5 +1,4 @@
 require('babel-register');
-require('babel-polyfill');
 
 const cluster = require('cluster');
 const server = require('./server');
@@ -15,5 +14,5 @@ if (cluster.isMaster) {
 		cluster.fork();
 	});
 } else {
-	server();
+	server.default();
 }
