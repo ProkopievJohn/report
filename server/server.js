@@ -1,12 +1,13 @@
 import http from 'http';
 import Koa from 'koa';
 import BodyParser from 'koa-body-parser';
-import cors from 'koa-cors';
+// import cors from 'koa-cors';
+import serve from 'koa-static';
+import path from 'path';
 import config from '../config/server';
 import {
-	publicApi,
-	userApi,
-	adminApi
+	// userApi,
+	// adminApi
 } from './api';
 import { connect } from './db';
 
@@ -15,9 +16,8 @@ export default async () => {
 
 	const app = new Koa();
 
-	app
-		.use(cors())
-		.use(BodyParser());
+	// app.use(cors());
+	app.use(BodyParser());
 
 	config.debug && app.use(async (ctx, next) => {
 		const start = new Date();
@@ -38,7 +38,7 @@ export default async () => {
 			await next();
 		} catch (e) {
 			if (!ctx.response.body) {
-				console.error(e);
+				console.error(e); // eslint-disable-line no-console;
 				ctx.response.status = 500;
 				if (config.debug) {
 					ctx.response.body = e;
@@ -50,9 +50,10 @@ export default async () => {
 		}
 	});
 
-	app.use(publicApi());
-	app.use(userApi());
-	app.use(adminApi());
+	// app.use(userApi());
+	// app.use(adminApi());
+
+	app.use(serve(path.resolve('build')));
 
 	http.createServer(app.callback()).listen(config.port, config.host, err => {
 		if (err) {

@@ -6,8 +6,10 @@ const isAuthenticated = (ctx, next) => {
 	} else {
 		let data = config.defaultData;
 
-		ctx.response.status = 401;
 		data.errors.push('Please login');
+
+		ctx.response.status = 401;
+		ctx.redirect('/login');
 		ctx.response.body = data;
 	}
 };
