@@ -2,13 +2,13 @@ import http from 'http';
 import Koa from 'koa';
 import BodyParser from 'koa-body-parser';
 // import cors from 'koa-cors';
-import serve from 'koa-static';
-import path from 'path';
+// import serve from 'koa-static';
+import configMiddleware from './utils/configMiddleware';
 import config from '../config/server';
-import {
-	// userApi,
-	// adminApi
-} from './api';
+// import {
+// 	userApi,
+// 	adminApi
+// } from './api';
 import { connect } from './db';
 
 export default async () => {
@@ -53,11 +53,12 @@ export default async () => {
 	// app.use(userApi());
 	// app.use(adminApi());
 
-	app.use(serve(path.resolve('build')));
+	// app.use(serve(path.resolve('build')));
+	config.debug && app.use(configMiddleware);
 
 	http.createServer(app.callback()).listen(config.port, config.host, err => {
 		if (err) {
-			console.error(`Error to start server on  http://${config.host}:${config.port}`, err); // eslint-disable-line no-console;
+			console.error(`[ERROR] Error to start server on  http://${config.host}:${config.port}`, err); // eslint-disable-line no-console;
 		}
 		console.error(`[INFO] Start server on http://${config.host}:${config.port}`); // eslint-disable-line no-console;
 	});
