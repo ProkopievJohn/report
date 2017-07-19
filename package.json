@@ -1,78 +1,19 @@
 {
-	"name": "report",
-	"version": "0.0.1",
-	"description": "admin panel for prokopiev",
-	"main": "index.js",
-	"scripts": {
-		"eslint": "eslint src/**/*.js server/**/*.js webpack.config.js",
-		"start": "npm run eslint && nodemon server --watch",
-		"build": "rimraf ./dist/* && NODE_ENV = production webpack"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/ProkopievJohn/report.git"
-	},
-	"keywords": [
-		"React",
-		"Redux",
-		"Webpack"
-	],
-	"author": "Prokopiev Ivan <ProkopievJohn@gmail.com>",
-	"license": "ISC",
-	"bugs": {
-		"url": "https://github.com/ProkopievJohn/report/issues"
-	},
-	"homepage": "https://github.com/ProkopievJohn/report#readme",
-	"dependencies": {
-		"axios": "^0.16.2",
-		"bcrypt-nodejs": "0.0.3",
-		"jsonwebtoken": "^7.4.1",
-		"koa": "^2.3.0",
-		"koa-body-parser": "^1.1.2",
-		"koa-cors": "0.0.16",
-		"koa-jwt": "^3.2.2",
-		"koa-logger": "^3.0.1",
-		"koa-router": "^7.2.1",
-		"koa-static": "^4.0.0",
-		"mongoose": "^4.11.0",
-		"react": "^15.6.1",
-		"react-dom": "^15.6.1",
-		"react-redux": "^5.0.5",
-		"redux": "^3.7.1",
-		"redux-logger": "^3.0.6",
-		"redux-thunk": "^2.2.0"
-	},
-	"devDependencies": {
-		"babel-core": "^6.25.0",
-		"babel-eslint": "^7.2.3",
-		"babel-loader": "^7.1.1",
-		"babel-polyfill": "^6.23.0",
-		"babel-preset-env": "^1.5.2",
-		"babel-preset-react": "^6.24.1",
-		"babel-preset-stage-1": "^6.24.1",
-		"babel-register": "^6.24.1",
-		"css-loader": "^0.28.4",
-		"eslint": "^4.1.1",
-		"eslint-config-standard": "^10.2.1",
-		"eslint-config-standard-react": "^5.0.0",
-		"eslint-loader": "^1.9.0",
-		"eslint-plugin-import": "^2.6.1",
-		"eslint-plugin-node": "^5.1.0",
-		"eslint-plugin-promise": "^3.5.0",
-		"eslint-plugin-react": "^7.1.0",
-		"eslint-plugin-standard": "^3.0.1",
-		"extract-text-webpack-plugin": "^2.1.2",
-		"file-loader": "^0.11.2",
-		"html-webpack-plugin": "^2.29.0",
-		"jade": "^1.11.0",
-		"jade-loader": "^0.8.0",
-		"nodemon": "^1.11.0",
-		"postcss-loader": "^2.0.6",
-		"rimraf": "^2.6.1",
-		"sass-loader": "^6.0.6",
-		"style-loader": "^0.18.2",
-		"url-loader": "^0.5.9",
-		"webpack": "^2.6.1",
-		"webpack-dev-middleware": "^1.11.0"
-	}
+  "name": "report",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "react": "^15.6.1",
+    "react-bootstrap": "^0.31.1",
+    "react-dom": "^15.6.1",
+    "react-router-dom": "^4.1.2",
+    "react-scripts": "1.0.10"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
 }
