@@ -1,15 +1,12 @@
 import Koa from 'koa'
 import BodyParser from 'koa-bodyparser'
-import cors from 'koa-cors'
 import config from '../../config/server'
-// import responseHelpers from './controllers/utils/responseHelpers'
+import cors from '../utils/cors'
 
-export default function configureApi () {
+export default () => {
   const api = new Koa()
 
   api.use(BodyParser())
-
-  // api.use(responseHelpers)
 
   config.debug && api.use(async (ctx, next) => {
     const start = new Date()

@@ -14,5 +14,5 @@ if (cluster.isMaster) {
     cluster.fork()
   })
 } else {
-  require('../server').default()
+  require('../server/server').default()
 }

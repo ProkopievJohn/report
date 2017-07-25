@@ -1,46 +1,18 @@
-import { createServer } from 'http'
-import checkRequiredFiles from 'react-dev-utils/checkRequiredFiles'
-import serve from 'koa-static'
-import configureApi from './api'
-import config from '../config/server'
-import paths from '../config/paths'
-import configureWebpack from '../scripts/untils/configureWebpack'
-import { worker } from 'cluster'
+process.env.BABEL_ENV = 'production'
+process.env.NODE_ENV = 'production'
+const cluster = require('cluster')
 
-// Warn and crash if required files are missing
-if (!checkRequiredFiles([paths.appHtml, paths.appIndexJs])) {
-  process.exit(1)
-}
+require('../config/env')
 
-function padRight (text, neededLength) {
-  if (text.length === neededLength) {
-    return text
-  } else {
-    return text + (new Array(neededLength - text.length + 1).join(' '))
+if (cluster.isMaster) {
+  const cpus = require('os').cpus().length * 2
+  for (let i = 0; i < cpus; i++) {
+    cluster.fork()
   }
-}
-
-console.log( // eslint-disable-line no-console
-  `
-+-------------------------------------------------------------+
-|                      Report API Server                      |
-+-------------------------------------------------------------+
-| Worker #${padRight(worker.id + ' is started', 51)} |
-| Port:            ${padRight(config.port + '', 42)} |
-+-------------------------------------------------------------+
-`)
-
-export default async () => {
-  const api = configureApi()
-
-  config.debug ? configureWebpack(api) : api.use(serve(paths.appBuild))
-
-  const server = createServer(api.callback())
-
-  server.listen(config.port, config.host, err => {
-    if (err) {
-      console.error(`[ERROR] Unable to start server on port ${config.port}`, err) // eslint-disable-line no-console
-    }
-    console.log(`[INFO] server start on ${config.protocol}//${config.host}:${config.port}`) // eslint-disable-line no-console
+  cluster.on('exit', (worker, code, signal) => {
+    console.log('[WARN] Worker %d died with code/signal %s. Restarting worker...', worker.process.pid, signal, code) // eslint-disable-line no-console
+    cluster.fork()
   })
+} else {
+  require('./server').default()
 }

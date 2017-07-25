@@ -27,7 +27,15 @@ export default function configureWebpack (api) {
       host: config.host,
       historyApiFallback: true
     }
-	)
+  )
+
+  api.use((ctx, next) => {
+    if (ctx.req.url.indexOf('.') === -1 && ctx.req.url.indexOf('__webpack') === -1 && ctx.req.url.indexOf('api') === -1) {
+      ctx.req.url = '/'
+    }
+    return next()
+  })
+
   api.use((ctx, next) => {
     webpackDevMiddleware(ctx.req,
       {
@@ -41,12 +49,6 @@ export default function configureWebpack (api) {
     )
   })
 
-  api.use((ctx, next) => {
-    if (ctx.req.url.indexOf('.') === -1 && ctx.req.url.indexOf('__webpack') === -1 && ctx.req.url.indexOf('api') === -1) {
-      ctx.req.url = '/'
-    }
-    return next()
-  })
   const webpackHotMiddleware = hotMiddleware(compiler, {})
 
   api.use(async (ctx, next) => {

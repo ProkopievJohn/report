@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "eslint": "eslint src/**/*.js server/**/*.js",
-    "start": "npm run eslint && nodemon scripts/start.js --exec babel-node --watch server --inspect",
+    "start": "npm run eslint && nodemon scripts/start.js --exec babel-node --watch server",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom"
   },
@@ -14,10 +14,10 @@
     "jest": "20.0.4",
     "koa": "^2.3.0",
     "koa-bodyparser": "^4.2.0",
-    "koa-cors": "^0.0.16",
     "koa-jwt": "^3.2.2",
     "koa-router": "^7.2.1",
     "koa-static": "^4.0.1",
+    "material-ui": "next",
     "moment": "^2.18.1",
     "mongodb": "^2.2.30",
     "object-assign": "4.1.1",
