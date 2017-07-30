@@ -13,7 +13,7 @@ if (!checkRequiredFiles([paths.appHtml, paths.appIndexJs])) {
   process.exit(1)
 }
 
-function padRight (text, neededLength) {
+function padRight(text, neededLength) {
   if (text.length === neededLength) {
     return text
   } else {

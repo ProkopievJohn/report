@@ -3,7 +3,7 @@ import config from '../../config/server'
 
 let db
 
-export default function connectToDb () {
+export default function connectToDb() {
   return new Promise((resolve, reject) => {
     MongoClient.connect(config.db.uri, config.db.options, (err, database) => {
       if (err) {
