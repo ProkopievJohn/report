@@ -3,6 +3,7 @@ import { reducer as form } from 'redux-form'
 import { routerReducer, routerMiddleware } from 'react-router-redux'
 import { createBrowserHistory } from 'history'
 import createSagaMiddleware from 'redux-saga'
+import { createLogger } from 'redux-logger'
 import reducers from '../reducers'
 import saga from './sagas'
 
@@ -18,7 +19,8 @@ export default () => {
     reducer,
     applyMiddleware(
       sagaMiddleware,
-      routerMiddleware(history)
+      routerMiddleware(history),
+      createLogger()
     )
   )
   sagaMiddleware.run(saga, store)
