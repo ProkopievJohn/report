@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "eslint": "eslint src/**/*.js server/**/*.js",
-    "start": "npm run eslint && nodemon scripts/start.js --exec babel-node --watch server",
+    "start": "npm run eslint && nodemon scripts/start.js --exec babel-node --watch server --inspect",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom"
   },
@@ -17,7 +17,7 @@
     "koa-jwt": "^3.2.2",
     "koa-router": "^7.2.1",
     "koa-static": "^4.0.1",
-    "material-ui": "next",
+    "material-ui": "^0.18.7",
     "moment": "^2.18.1",
     "mongodb": "^2.2.30",
     "object-assign": "4.1.1",
@@ -33,6 +33,7 @@
     "react-router": "^4.1.2",
     "react-router-dom": "^4.1.2",
     "react-router-redux": "^4.0.8",
+    "react-tap-event-plugin": "^2.0.1",
     "redux": "^3.7.2",
     "redux-form": "^7.0.1",
     "redux-logger": "^3.0.6",
