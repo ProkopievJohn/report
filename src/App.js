@@ -1,5 +1,7 @@
 import React, { PureComponent } from 'react'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import getMuiTheme from 'material-ui/styles/getMuiTheme'
+import myTheme from './myTheme'
 import { Provider } from 'react-redux'
 import { ConnectedRouter } from 'react-router-redux'
 import { Route, Switch } from 'react-router-dom'
@@ -9,8 +11,9 @@ import Main from './components/Main'
 class App extends PureComponent {
   render() {
     const store = createStore()
+    const muiTheme = getMuiTheme(myTheme)
     return (
-      <MuiThemeProvider>
+      <MuiThemeProvider muiTheme={muiTheme}>
         <Provider store={store} >
           <ConnectedRouter store={store} history={store.history}>
             <Switch>

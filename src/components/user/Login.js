@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import { Field, reduxForm } from 'redux-form'
-import { TextField } from 'material-ui'
+import { TextField, Paper } from 'material-ui'
 import { connect } from 'react-redux'
 
 const renderTextField = ({
@@ -21,15 +21,19 @@ class Login extends PureComponent {
   render() {
     const { handleSubmit, pristine, submitting } = this.props
     return (
-      <form onSubmit={handleSubmit}>
-        <div>
-          <Field name="email" component={renderTextField} label="Email" />
-        </div>
-        <div>
-          <button type="submit" disabled={pristine || submitting}>Submit</button>
-          <button type="button" disabled={pristine || submitting}>Clear Values</button>
-        </div>
-      </form>
+      <div className="flex-container row justify-center">
+        <Paper zDepth={3} className="container">
+          <form onSubmit={handleSubmit}>
+            <div>
+              <Field name="email" component={renderTextField} label="Email" className="field" />
+            </div>
+            <div>
+              <button type="submit" disabled={pristine || submitting}>Submit</button>
+              <button type="button" disabled={pristine || submitting}>Clear Values</button>
+            </div>
+          </form>
+        </Paper>
+      </div>
     )
   }
 }
