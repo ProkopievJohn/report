@@ -14,7 +14,27 @@ export default () => {
     const execution = new Date() - start
     console.warn(`[INFO] ${ctx.url} ${ctx.method} Execution ${execution}ms`) // eslint-disable-line no-console
   })
+
   api.proxy = true
+
+  api.use((ctx, next) => (
+    Promise.race([
+      next(),
+      new Promise((resolve, reject) => setTimeout(reject.bind('timeout'), 3000))
+    ]).catch(err => {
+      if (err === 'timeout') {
+        console.log(`
+          [TIEMOUT] Request execution time is too long
+          Request to ${ctx.url}
+          From ${ctx.ip}
+          Method ${ctx.method}
+          Query params ${ctx.querystring}
+          `)
+      } else {
+        throw err
+      }
+    })
+  ))
 
   config.debug && api.use(cors())
 
