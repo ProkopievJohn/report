@@ -5,7 +5,7 @@ const cluster = require('cluster')
 require('../config/env')
 
 if (cluster.isMaster) {
-  const cpus = require('os').cpus().length * 2
+  const cpus = require('os').cpus().length
   for (let i = 0; i < cpus; i++) {
     cluster.fork()
   }

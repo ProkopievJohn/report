@@ -2,6 +2,7 @@ import Koa from 'koa'
 import BodyParser from 'koa-bodyparser'
 import config from '../../config/server'
 import cors from '../utils/cors'
+import { configurePublicApi } from './controllers'
 
 export default () => {
   const api = new Koa()
@@ -55,6 +56,8 @@ export default () => {
       }
     }
   })
+
+  api.use(configurePublicApi())
 
   return api
 }

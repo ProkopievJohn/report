@@ -10,6 +10,7 @@ export default function connectToDb() {
         return reject(err)
       }
       resolve(database)
+      console.log('[INFO] DB is connected')
       db = database
     })
   })
