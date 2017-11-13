@@ -12,33 +12,51 @@ const register = async (ctx, next) => {
       payload: { message: 'Email and Password is required' },
       success: false
     }
-  }
+  } else {
+    const existUser = await UserCollection.findOne({email}, {_id: 1})
 
-  const user = (await UserCollection.insert({
-    createdAt: new Date(),
-    modifiedAt: new Date(),
-    password: bcrypt.hashSync(password, 10),
-    email
-  })).ops[0]
+    if (existUser) {
+      ctx.response.status = 400
+      ctx.response.body = {
+        payload: { message: 'Email is exist' },
+        success: false
+      }
+    } else {
+      try {
+        const user = (await UserCollection.insert({
+          createdAt: new Date(),
+          modifiedAt: new Date(),
+          password: bcrypt.hashSync(password, 10),
+          email
+        })).ops[0]
 
-  const rawToken = {
-    _id: user._id,
-    emails: user.emails
-  }
+        const rawToken = {
+          _id: user._id,
+          emails: user.emails
+        }
 
-  const token = JWT.sign(
-    rawToken,
-    config.jwt.user.secret,
-    config.jwt.user.opts
-  )
+        const token = JWT.sign(
+          rawToken,
+          config.jwt.user.secret,
+          config.jwt.user.opts
+        )
 
-  ctx.response.status = 200
-  ctx.response.body = {
-    payload: {
-      user: { ...user, password: null },
-      token
-    },
-    success: true
+        ctx.response.status = 200
+        ctx.response.body = {
+          payload: {
+            user: { ...user, password: null },
+            token
+          },
+          success: true
+        }
+      } catch (err) {
+        ctx.response.status = 500
+        ctx.response.body = {
+          payload: err,
+          success: false
+        }
+      }
+    }
   }
 }
 

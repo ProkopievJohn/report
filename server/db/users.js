@@ -1,5 +1,6 @@
 import { getDb } from './index'
 import UserSchema from './schemas/user'
+import bcrypt from 'bcrypt'
 
 export default {
   find(...opts) {
@@ -16,5 +17,20 @@ export default {
     const db = getDb('users')
     await UserSchema.validate(doc)
     return db.insert(doc)
+  },
+
+  async authenticate(credentials) {
+    const { email, password } = credentials
+
+    const db = getDb('users')
+    const user = await db.findOne({
+      email
+    })
+
+    if (user && !bcrypt.compareSync(password, user.password)) {
+      return null
+    }
+
+    return user
   }
 }
