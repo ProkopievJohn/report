@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { Route, Switch } from 'react-router-dom'
-import Login from './user/Login'
+import Login from './public/Login'
 
 class Main extends PureComponent {
   render() {
