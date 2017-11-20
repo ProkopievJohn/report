@@ -8,6 +8,8 @@ import { Link } from 'react-router-dom'
 
 import './Login.scss'
 import logo from '../../img/report.png'
+import { createAction } from '../../utils/createAction'
+import { AUTH } from '../../constants'
 
 const renderTextField = ({
   input,
@@ -62,7 +64,8 @@ class Login extends PureComponent {
 }
 
 const handleSubmitForm = (data, dispatch, props) => {
-  console.log('data: ', data)
+  const { login } = props
+  login(data)
 }
 
 const LoginForm = reduxForm({
@@ -73,5 +76,8 @@ const LoginForm = reduxForm({
 export default connect(
   state => ({
     state
-  })
+  }),
+  {
+    login: createAction(AUTH)
+  }
 )(LoginForm)
