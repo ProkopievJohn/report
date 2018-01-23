@@ -32,7 +32,7 @@ const register = async (ctx, next) => {
 
         const rawToken = {
           _id: user._id,
-          emails: user.emails
+          email: user.email
         }
 
         const token = JWT.sign(

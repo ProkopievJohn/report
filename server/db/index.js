@@ -16,6 +16,13 @@ export default function connectToDb() {
   })
 }
 
+export async function ready() {
+  if (!db) {
+    await connectToDb()
+  }
+  return true
+}
+
 export const getDb = collection => {
   if (!db) {
     throw new Error('DB is not connected!')

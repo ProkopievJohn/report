@@ -3,6 +3,7 @@ import BodyParser from 'koa-bodyparser'
 import config from '../../config/server'
 import cors from '../utils/cors'
 import { configurePublicApi } from './controllers'
+import responseHelpers from './utils/responseHelpers'
 
 export default () => {
   const api = new Koa()
@@ -15,6 +16,8 @@ export default () => {
     const execution = new Date() - start
     console.warn(`[INFO] ${ctx.url} ${ctx.method} Execution ${execution}ms`) // eslint-disable-line no-console
   })
+
+  api.use(responseHelpers)
 
   api.proxy = true
 
