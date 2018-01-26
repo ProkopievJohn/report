@@ -14,7 +14,7 @@ export default () => {
     const start = new Date()
     await next()
     const execution = new Date() - start
-    console.warn(`[INFO] ${ctx.url} ${ctx.method} Execution ${execution}ms`) // eslint-disable-line no-console
+    execution > 100 && console.warn(`[INFO] ${ctx.url} ${ctx.method} Execution ${execution}ms`) // eslint-disable-line no-console
   })
 
   api.use(responseHelpers)

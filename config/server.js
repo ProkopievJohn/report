@@ -1,6 +1,8 @@
 export default {
   db: {
-    uri: 'mongodb://localhost:27017/report',
+    uri: process.env.NODE_ENV === 'test'
+      ? 'mongodb://localhost:27017/api-test'
+      : 'mongodb://localhost:27017/report',
     options: {}
   },
   jwt: {
