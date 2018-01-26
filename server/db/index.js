@@ -10,7 +10,7 @@ export default function connectToDb() {
         return reject(err)
       }
       resolve(database)
-      console.log('[INFO] DB is connected')
+      process.env.NODE_ENV !== 'test' && console.log('[INFO] DB is connected')
       db = database
     })
   })

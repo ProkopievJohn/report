@@ -25,7 +25,7 @@ const renderTextField = ({
   />
 )
 
-class Login extends PureComponent {
+export class Login extends PureComponent {
   render() {
     const { handleSubmit, pristine, submitting } = this.props
     return (
