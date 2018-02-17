@@ -9,5 +9,6 @@ export default validator({
       address: String,
       verified: Boolean
     }
-  }
+  },
+  lastSeen: Date
 })

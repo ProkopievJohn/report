@@ -6,19 +6,11 @@ export default {
     options: {}
   },
   jwt: {
-    user: {
-      secret: 'very-secret-token-for-application',
-      public: 'very-secret-token-for-application',
-      opts: {
-        // algorithm: 'RS256'
-      }
-    },
-    admin: {
-      secret: 'very-secret-admin-token-for-application',
-      public: 'very-secret-admin-token-for-application',
-      opts: {
-        // algorithm: 'RS256'
-      }
+    secret: 'very-secret-token-for-application',
+    public: 'very-secret-token-for-application',
+    passthrough: true,
+    opts: {
+      // algorithm: 'RS256'
     }
   },
   protocol: process.env.HTTPS === 'true' ? 'https' : 'http',

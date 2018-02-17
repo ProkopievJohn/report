@@ -37,8 +37,8 @@ const register = async (ctx, next) => {
 
     const token = JWT.sign(
       rawToken,
-      config.jwt.user.secret,
-      config.jwt.user.opts
+      config.jwt.secret,
+      config.jwt.opts
     )
 
     ctx.resolve({

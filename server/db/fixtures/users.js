@@ -10,7 +10,7 @@ export async function createUsersWithAuth() {
   const user = {
     password,
     email,
-    user: await UserCollection.insert({
+    user: (await UserCollection.insert({
       createdAt: new Date(),
       modifiedAt: new Date(),
       password: bcrypt.hashSync(password, 10),
@@ -18,16 +18,17 @@ export async function createUsersWithAuth() {
         address: email,
         verified: false
       }
-    })
+    })).ops[0]
   }
   const rawToken = {
-    _id: user._id,
-    email: user.email
+    _id: user.user._id,
+    email: user.user.email
   }
+
   const authToken = JWT.sign(
     rawToken,
-    config.jwt.user.secret,
-    config.jwt.user.opts
+    config.jwt.secret,
+    config.jwt.opts
   )
 
   return {

@@ -18,7 +18,11 @@ export default {
     await UserSchema.validate(doc)
     return db.insert(doc)
   },
-
+  async update(doc) {
+    const db = getDb('users')
+    await UserSchema.validate(doc)
+    return db.update({_id: doc._id}, doc)
+  },
   async authenticate(credentials) {
     const { email, password } = credentials
 

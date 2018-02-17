@@ -1,9 +1,11 @@
 import UserCollection from '../../../db/users'
 import JWT from 'jsonwebtoken'
 import config from '../../../../config/server'
+import normalizeEmailAddress from '../../utils/normalizeEmailAddress'
 
 const login = async (ctx, next) => {
-  const {email, password} = ctx.request.body
+  const {email: bodyEmail, password} = ctx.request.body
+  const email = normalizeEmailAddress(bodyEmail)
 
   if (!email || !password) {
     return ctx.invalidData('Email and Password is required')
@@ -22,8 +24,8 @@ const login = async (ctx, next) => {
       }
       const token = JWT.sign(
         rawToken,
-        config.jwt.user.secret,
-        config.jwt.user.opts
+        config.jwt.secret,
+        config.jwt.opts
       )
 
       ctx.resolve({
