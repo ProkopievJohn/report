@@ -87,7 +87,10 @@ describe('API:Public:Login', () => {
         success: true,
         payload: {
           user: {
-            email
+            email: {
+              address: email,
+              verified: false
+            }
           }
         }
       }))

@@ -14,7 +14,10 @@ export async function createUsersWithAuth() {
       createdAt: new Date(),
       modifiedAt: new Date(),
       password: bcrypt.hashSync(password, 10),
-      email
+      email: {
+        address: email,
+        verified: false
+      }
     })
   }
   const rawToken = {

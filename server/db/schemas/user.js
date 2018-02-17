@@ -4,5 +4,10 @@ export default validator({
   createdAt: Date,
   modifiedAt: Date,
   password: String,
-  email: String
+  email: {
+    type: {
+      address: String,
+      verified: Boolean
+    }
+  }
 })

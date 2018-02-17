@@ -2,15 +2,18 @@ import bcrypt from 'bcrypt'
 import JWT from 'jsonwebtoken'
 import config from '../../../../config/server'
 import UserCollection from '../../../db/users'
+import normalizeEmailAddress from '../../utils/normalizeEmailAddress'
 
 const register = async (ctx, next) => {
-  const {email, password} = ctx.request.body
+  const {email: bodyEmail, password} = ctx.request.body
+
+  const email = normalizeEmailAddress(bodyEmail)
 
   if (!email || !password) {
     return ctx.invalidData('Email and Password is required')
   }
 
-  const existUser = await UserCollection.findOne({email}, {_id: 1})
+  const existUser = await UserCollection.findOne({'email.address': email}, {_id: 1})
 
   if (existUser) {
     return ctx.invalidData('Email is exist')
@@ -21,13 +24,17 @@ const register = async (ctx, next) => {
       createdAt: new Date(),
       modifiedAt: new Date(),
       password: bcrypt.hashSync(password, 10),
-      email
+      email: {
+        address: email,
+        verified: false
+      }
     })).ops[0]
 
     const rawToken = {
       _id: user._id,
-      email: user.email
+      email: user.email.address
     }
+
     const token = JWT.sign(
       rawToken,
       config.jwt.user.secret,
@@ -41,11 +48,7 @@ const register = async (ctx, next) => {
       token
     })
   } catch (err) {
-    ctx.response.status = 500
-    ctx.response.body = {
-      payload: err,
-      success: false
-    }
+    ctx.fail('Register error', err)
   }
 }
 

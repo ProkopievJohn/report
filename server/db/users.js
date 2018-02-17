@@ -24,7 +24,7 @@ export default {
 
     const db = getDb('users')
     const user = await db.findOne({
-      email
+      'email.address': email
     })
 
     if (user && !bcrypt.compareSync(password, user.password)) {
