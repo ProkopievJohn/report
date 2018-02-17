@@ -1,5 +1,5 @@
 import { fork, call, put, takeEvery } from 'redux-saga/effects'
-import { AUTH } from '../../constants'
+import { AUTH } from '../constants'
 import { callApi, setToken } from './api'
 
 function* login(action) {

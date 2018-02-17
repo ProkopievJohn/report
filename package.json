@@ -41,6 +41,7 @@
     "redux-form": "^7.0.1",
     "redux-logger": "^3.0.6",
     "redux-saga": "^0.15.4",
+    "reselect": "^3.0.1",
     "sjv": "^1.3.0",
     "supertest": "^3.0.0"
   },
