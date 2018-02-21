@@ -27,12 +27,12 @@ export async function callApi(url, params = {}) {
   }
 
   const { method = 'GET', headers, body, onUploadProgress = () => {}, onDownloadProgress = () => {} } = params
-  const preparedUrl = `${process.env.PUBLIC_URL || '/'}api/2/${url}`
+  const preparedUrl = `${process.env.PUBLIC_URL || '/'}api/${url}`
   try {
     const response = await fetch(preparedUrl, {
       method,
       headers,
-      data: body,
+      body,
       onUploadProgress,
       onDownloadProgress
     })

@@ -1,5 +1,4 @@
 import request from 'supertest'
-// import faker from 'faker'
 import configureApi from '../../index'
 import { createUsersWithAuth } from '../../../db/fixtures/users'
 import { ready } from '../../../db/index'

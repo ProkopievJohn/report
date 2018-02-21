@@ -7,7 +7,7 @@ import RaisedButton from 'material-ui/RaisedButton'
 import FlatButton from 'material-ui/FlatButton'
 import { push } from 'react-router-redux'
 
-import './Login.scss'
+import './index.scss'
 import logo from '../../img/report.png'
 import { createAction } from '../../utils/createAction'
 import { AUTH } from '../../constants'
@@ -47,7 +47,7 @@ export class Login extends PureComponent {
   }
 
   render() {
-    const { handleSubmit, pristine, submitting } = this.props
+    const { handleSubmit, pristine, submitting, error } = this.props
     return (
       <div className="wrapper">
         <div className="header">
@@ -62,6 +62,7 @@ export class Login extends PureComponent {
               <div className="public-form-content">
                 <Field name="email" type="text" component={renderTextField} label="Email" className="field" />
                 <Field name="password" type="password" component={renderTextField} label="Password" className="field" />
+                <div className="public-error">{error}</div>
               </div>
               <div className="public-form-actions">
                 <RaisedButton

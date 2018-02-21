@@ -28,3 +28,12 @@
   display: flex;
   justify-content: space-between;
 }
+
+.public-error {
+  color: red;
+  font-weight: 100;
+  font-size: 14px;
+  min-height: 16px;
+  margin-top: 10px;
+  text-align: center;
+}

@@ -9,3 +9,7 @@ function createActionConstants(name) {
 export const AUTH = {
   ...createActionConstants('AUTH')
 }
+
+export const REGISTER = {
+  ...createActionConstants('REGISTER')
+}
