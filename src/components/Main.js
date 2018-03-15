@@ -8,7 +8,15 @@ import Register from './public/Register'
 class Main extends PureComponent {
   render() {
     const { isAuthenticated } = this.props
-    if (isAuthenticated) {}
+    if (isAuthenticated) {
+      return (
+        <div>
+          <Switch>
+            <Route component={() => <div>aaaa aaaaa aaaa aaaa</div>} />
+          </Switch>
+        </div>
+      )
+    }
 
     return (
       <div>

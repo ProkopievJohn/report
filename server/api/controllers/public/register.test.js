@@ -4,7 +4,7 @@ import configureApi from '../../index'
 import { createUsersWithAuth } from '../../../db/fixtures/users'
 import { ready } from '../../../db/index'
 
-describe('API:Public:Login', () => {
+describe('API:Public:Register', () => {
   let api
   let app
   let fixtureData

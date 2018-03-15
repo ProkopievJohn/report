@@ -2,7 +2,7 @@ import Koa from 'koa'
 import BodyParser from 'koa-bodyparser'
 import config from '../../config/server'
 import cors from '../utils/cors'
-import { configurePublicApi } from './controllers'
+import { configurePublicApi, configureSecureApi } from './controllers'
 import responseHelpers from './utils/responseHelpers'
 
 export default () => {
@@ -61,6 +61,7 @@ export default () => {
   })
 
   api.use(configurePublicApi())
+  api.use(configureSecureApi())
 
   return api
 }

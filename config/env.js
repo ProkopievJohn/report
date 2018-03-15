@@ -11,7 +11,7 @@ if (!NODE_ENV) {
     'The NODE_ENV environment variable is required but was not specified.'
   )
 }
-process.env.TZ = 'UTC'
+
 // https://github.com/bkeepers/dotenv#what-other-env-files-can-i-use
 const dotenvFiles = [
   `${paths.dotenv}.${NODE_ENV}.local`,
@@ -53,11 +53,15 @@ process.env.NODE_PATH = (process.env.NODE_PATH || '')
 
 // Grab NODE_ENV and REACT_APP_* environment variables and prepare them to be
 // injected into the application via DefinePlugin in Webpack configuration.
-const REACT_APP = /^REACT_APP_/i
+const APP = /^APP_/i
+
+const API_URL = process.env.API_HOST
+  ? `${process.env.API_PROTOCOL}://${process.env.API_HOST}${(process.env.API_PORT !== 80 ? `:${process.env.API_PORT}` : '')}/`
+  : '/'
 
 function getClientEnvironment(publicUrl) {
   const raw = Object.keys(process.env)
-    .filter(key => REACT_APP.test(key))
+    .filter(key => APP.test(key))
     .reduce(
       (env, key) => {
         env[key] = process.env[key]
@@ -67,6 +71,7 @@ function getClientEnvironment(publicUrl) {
         // Useful for determining whether we’re running in production mode.
         // Most importantly, it switches React into the correct mode.
       NODE_ENV: process.env.NODE_ENV || 'development',
+      API_URL,
         // Useful for resolving the correct path to static assets in `public`.
         // For example, <img src={process.env.PUBLIC_URL + '/img/logo.png'} />.
         // This should only be used as an escape hatch. Normally you would put

@@ -1,10 +1,8 @@
 import { createServer } from 'http'
 import checkRequiredFiles from 'react-dev-utils/checkRequiredFiles'
-import serve from 'koa-static'
 import configureApi from './api'
 import config from '../config/server'
 import paths from '../config/paths'
-import configureWebpack from '../scripts/utils/configureWebpack'
 import { worker } from 'cluster'
 import connectDb from './db'
 
@@ -35,15 +33,12 @@ export default async () => {
   await connectDb()
 
   const api = configureApi()
-
-  config.debug ? configureWebpack(api) : api.use(serve(paths.appBuild))
-
   const server = createServer(api.callback())
 
   server.listen(config.port, config.host, err => {
     if (err) {
       console.error(`[ERROR] Unable to start server on port ${config.port}`, err) // eslint-disable-line no-console
     }
-    console.log(`[INFO] server start on ${config.protocol}//${config.host}:${config.port}`) // eslint-disable-line no-console
+    console.log(`[INFO] server start on http://${config.host}:${config.port}`) // eslint-disable-line no-console
   })
 }

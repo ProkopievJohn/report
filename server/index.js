@@ -1,8 +1,5 @@
-process.env.BABEL_ENV = 'production'
-process.env.NODE_ENV = 'production'
 const cluster = require('cluster')
-
-require('../config/env')
+process.env.TZ = 'UTC'
 
 if (cluster.isMaster) {
   const cpus = require('os').cpus().length

@@ -7,8 +7,11 @@ function createActionConstants(name) {
 }
 
 export const AUTH = {
-  ...createActionConstants('AUTH')
+  ...createActionConstants('AUTH'),
+  VERIFY: createActionConstants('AUTH.VERIFY')
 }
+
+export const LOGOUT = createActionConstants('LOGOUT')
 
 export const REGISTER = {
   ...createActionConstants('REGISTER')

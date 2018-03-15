@@ -1,8 +1,11 @@
+const MONGO_HOST = process.env.MONGO_HOST ? process.env.MONGO_HOST : 'localhost'
+const MONGO_PORT = process.env.MONGO_PORT ? process.env.MONGO_PORT : '27017'
+
 export default {
   db: {
     uri: process.env.NODE_ENV === 'test'
-      ? 'mongodb://localhost:27017/api-test'
-      : 'mongodb://localhost:27017/report',
+      ? `mongodb://${MONGO_HOST}:${MONGO_PORT}/api-test`
+      : `mongodb://${MONGO_HOST}:${MONGO_PORT}/report`,
     options: {}
   },
   jwt: {
@@ -13,8 +16,7 @@ export default {
       // algorithm: 'RS256'
     }
   },
-  protocol: process.env.HTTPS === 'true' ? 'https' : 'http',
-  host: process.env.HOST || 'localhost',
-  port: parseInt(process.env.PORT, 10) || 3000,
+  port: parseInt(process.env.API_PORT, 10) || 3010,
+  host: process.env.API_HOST || 'localhost',
   debug: process.env.NODE_ENV !== 'production'
 }

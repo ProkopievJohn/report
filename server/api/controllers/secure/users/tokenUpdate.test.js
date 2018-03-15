@@ -1,9 +1,9 @@
 import request from 'supertest'
-import configureApi from '../../index'
-import { createUsersWithAuth } from '../../../db/fixtures/users'
-import { ready } from '../../../db/index'
+import configureApi from '../../../index'
+import { createUsersWithAuth } from '../../../../db/fixtures/users'
+import { ready } from '../../../../db/index'
 
-describe('API:Public:Logout', () => {
+describe('API:Secure:Users:TokenUpdate', () => {
   let api
   let app
   const headers = {}
@@ -20,18 +20,18 @@ describe('API:Public:Logout', () => {
     headers.Authorization = `Bearer ${fixtureData.authToken}`
   })
 
-  it('should send 404 without loged user', async () => {
+  it('should send 401 without headers', async () => {
     await request(app)
-      .post('/api/public/logout')
-      .expect(404)
+      .get('/api/secure/users/token-renew')
+      .expect(401)
       .expect({
-        payload: { message: 'Not Found' },
+        payload: { message: 'Unauthorized' },
         success: false
       })
   })
-  it('should send 200 with correct email/password', async () => {
+  it('should send 200 with correct token', async () => {
     await request(app)
-      .post('/api/public/logout')
+      .post('/api/secure/users/token-renew')
       .set(headers)
       .expect(200)
       .expect(res => expect(res.body).toMatchObject({

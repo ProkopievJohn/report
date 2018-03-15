@@ -12,7 +12,7 @@ export function configurePublicApi() {
 
   router.post('/register', register)
   router.post('/login', login)
-  router.post('/logout', KoaJWT({...config.jwt, passthrough: true}), logout)
+  router.post('/logout', KoaJWT({...config.jwt}), logout)
 
   return router.routes()
 }
