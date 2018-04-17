@@ -26,15 +26,13 @@ export async function callApi(url, params = {}) {
     params.headers['Authorization'] = `Bearer ${token || params.token}`
   }
 
-  const { method = 'GET', headers, body, onUploadProgress = () => {}, onDownloadProgress = () => {} } = params
-  const preparedUrl = `${process.env.PUBLIC_URL || '/'}api/${url}`
+  const { method = 'GET', headers, body } = params
+  const preparedUrl = `${process.env.API_URL || '/'}api/${url}`
   try {
     const response = await fetch(preparedUrl, {
       method,
       headers,
-      body,
-      onUploadProgress,
-      onDownloadProgress
+      body
     })
     return {
       ok: response.ok,

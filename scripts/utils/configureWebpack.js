@@ -6,7 +6,7 @@ import paths from '../../config/paths'
 import config from '../../config/server'
 import { PassThrough } from 'stream'
 
-export default function configureWebpack (api) {
+export default function configureWebpack(api) {
   const compiler = webpack(webpackConfig)
   const webpackDevMiddleware = devMiddleware(
     compiler,
@@ -61,5 +61,9 @@ export default function configureWebpack (api) {
         ctx.set(headers)
       }
     }, next)
+  })
+
+  return new Promise(resolve => {
+    compiler.plugin('done', resolve)
   })
 }
