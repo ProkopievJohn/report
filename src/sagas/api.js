@@ -44,3 +44,7 @@ export async function callApi(url, params = {}) {
     console.log('[ERROR]', err)
   }
 }
+
+export function callSecureApi(url, params) {
+  return callApi(`secure/${url}`, params)
+}
