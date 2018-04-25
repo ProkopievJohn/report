@@ -4,15 +4,18 @@ import { createSelector, createStructuredSelector } from 'reselect'
 import { Route, Switch } from 'react-router-dom'
 import Login from './public/Login'
 import Register from './public/Register'
+// import AppBar from './secure/parts/AppBar'
+import Dashboard from './secure/dashboard'
 
 class Main extends PureComponent {
   render() {
     const { isAuthenticated } = this.props
     if (isAuthenticated) {
       return (
-        <div>
+        <div className="main">
+          {/* <AppBar /> */}
           <Switch>
-            <Route component={() => <div>aaaa aaaaa aaaa aaaa</div>} />
+            <Route component={Dashboard} />
           </Switch>
         </div>
       )

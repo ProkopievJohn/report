@@ -1,5 +1,5 @@
 import {
-  cyan700, grey700, darkBlack, white, grey300, fullBlack, transparent
+  cyan700, grey700, darkBlack, white, grey300, fullBlack
 } from 'material-ui/styles/colors'
 import { fade } from 'material-ui/utils/colorManipulator'
 
@@ -29,8 +29,5 @@ export default {
     pickerHeaderColor: primary,
     clockCircleColor: fade(darkBlack, 0.07),
     shadowColor: fullBlack
-  },
-  appBar: {
-    color: transparent
   }
 }
