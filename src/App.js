@@ -1,29 +1,21 @@
-import React, { PureComponent } from 'react'
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
-import getMuiTheme from 'material-ui/styles/getMuiTheme'
-import myTheme from './myTheme'
-import { Provider } from 'react-redux'
-import { ConnectedRouter } from 'react-router-redux'
-import { Route, Switch } from 'react-router-dom'
-import createStore from './store/createStore'
-import Main from './components/Main'
+import React, { Component } from 'react';
+import logo from './logo.svg';
+import './App.css';
 
-class App extends PureComponent {
+class App extends Component {
   render() {
-    const store = createStore()
-    const muiTheme = getMuiTheme(myTheme)
     return (
-      <MuiThemeProvider muiTheme={muiTheme}>
-        <Provider store={store} >
-          <ConnectedRouter store={store} history={store.history}>
-            <Switch>
-              <Route component={Main} />
-            </Switch>
-          </ConnectedRouter>
-        </Provider>
-      </MuiThemeProvider>
-    )
+      <div className="App">
+        <header className="App-header">
+          <img src={logo} className="App-logo" alt="logo" />
+          <h1 className="App-title">Welcome to React</h1>
+        </header>
+        <p className="App-intro">
+          To get started, edit <code>src/App.js</code> and save to reload.
+        </p>
+      </div>
+    );
   }
 }
 
-export default App
+export default App;
