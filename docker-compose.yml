@@ -4,36 +4,36 @@ services:
     build: .
     command: ["./node_modules/.bin/babel-node", "bin/web.js"]
     volumes:
-     - .:/app
-     - /app/node_modules
+      - .:/app
+      - /app/node_modules
     ports:
-     - "3000:3000"
+      - "3000:3000"
     environment:
-     - API_PROTOCOL=http
-     - API_HOST=0.0.0.0
-     - API_PORT=3010
-  # api:
-  #   build: .
-  #   command: ["./node_modules/.bin/nodemon", "--watch", "server", "bin/api.js"]
-  #   volumes:
-  #    - .:/app
-  #    - /app/node_modules
-  #   ports:
-  #    - "3010:3010"
-  #    - "3900:3900"
-  #    - "3910:3910"
-  #   links:
-  #    - mongo
-  #   environment:
-  #    - MONGO_HOST=mongo
-  #    - MONGO_PORT=27017
-  #    - API_HOST=0.0.0.0
-  #    - API_PORT=3010
-  # mongo:
-  #   image: "mongo:3"
-  #   ports:
-  #   - 27017:27017
-  #   logging:
-  #     driver: none
-  #   volumes:
-  #     - /data/mongodb/db:/data/db
+      - API_PROTOCOL=http
+      - API_HOST=0.0.0.0
+      - API_PORT=3010
+  api:
+    build: .
+    command: ["./node_modules/.bin/nodemon", "--watch", "server/api", "--watch", "server/db", "bin/api.js"]
+    volumes:
+      - .:/app
+      - /app/node_modules
+    ports:
+      - "3010:3010"
+      - "3900:3900"
+      - "3910:3910"
+    links:
+      - mongo
+    environment:
+      - MONGO_HOST=mongo
+      - MONGO_PORT=27017
+      - API_HOST=0.0.0.0
+      - API_PORT=3010
+  mongo:
+    image: "mongo:4"
+    ports:
+      - 27017:27017
+    logging:
+      driver: none
+    volumes:
+      - /data/mongodb/db:/data/db
