@@ -21,7 +21,8 @@ export default function configureWebpack(api) {
       publicPath: webpackConfig.output.publicPath,
       quiet: true,
       watchOptions: {
-        ignored: /node_modules/
+        ignored: /node_modules/,
+        aggregateTimeout: 1000
       },
       https: false,
       host: config.host,

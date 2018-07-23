@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500');
+
+:root {
+  --primary: #7894a0;
+  --primaryDark: #4b6672;
+  --primaryLight: #a8c4d1;
+  --primaryText: #fff;
+  --secondary: #5fb7e0;
+  --secondaryDark: #1f87ae;
+  --secondaryLight: #95e9ff;
+  --secondaryText: #fff;
+  --backgroundGrey: #e1e2e1;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}

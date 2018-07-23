@@ -6,7 +6,9 @@ export default {
     uri: process.env.NODE_ENV === 'test'
       ? `mongodb://${MONGO_HOST}:${MONGO_PORT}/api-test`
       : `mongodb://${MONGO_HOST}:${MONGO_PORT}/report`,
-    options: {}
+    options: {
+      useNewUrlParser: true
+    }
   },
   jwt: {
     secret: 'very-secret-token-for-application',
