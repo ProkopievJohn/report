@@ -7,6 +7,7 @@ import { createLogger } from 'redux-logger'
 import reducers from '../reducers'
 import saga from '../sagas'
 import persistentStorage from './persistentStorage'
+import socketConnector from './socketConnector'
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
@@ -21,6 +22,7 @@ export default () => {
   const store = createStore(
     reducer,
     composeEnhancers(
+      socketConnector,
       applyMiddleware(
         sagaMiddleware,
         routerMiddleware(history),

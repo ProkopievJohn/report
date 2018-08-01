@@ -1,11 +1,11 @@
-'use strict';
+'use strict'
 
-const fs = require('fs');
-const path = require('path');
-const paths = require('./paths');
+const fs = require('fs')
+const path = require('path')
+const paths = require('./paths')
 
 // Make sure that including paths.js after env.js will read .env variables.
-delete require.cache[require.resolve('./paths')];
+delete require.cache[require.resolve('./paths')]
 
 // We support resolving modules according to `NODE_PATH`.
 // This lets you use absolute paths in imports inside large monorepos:
@@ -16,12 +16,12 @@ delete require.cache[require.resolve('./paths')];
 // Otherwise, we risk importing Node.js core modules into an app instead of Webpack shims.
 // https://github.com/facebookincubator/create-react-app/issues/1023#issuecomment-265344421
 // We also resolve them to make sure all tools using them work consistently.
-const appDirectory = fs.realpathSync(process.cwd());
+const appDirectory = fs.realpathSync(process.cwd())
 process.env.NODE_PATH = (process.env.NODE_PATH || '')
   .split(path.delimiter)
   .filter(folder => folder && !path.isAbsolute(folder))
   .map(folder => path.resolve(appDirectory, folder))
-  .join(path.delimiter);
+  .join(path.delimiter)
 
 // Grab NODE_ENV and APP_* environment variables and prepare them to be
 // injected into the application via DefinePlugin in Webpack configuration.
@@ -31,35 +31,40 @@ const API_URL = process.env.API_HOST
   ? `${process.env.API_PROTOCOL}://${process.env.API_HOST}${(process.env.API_PORT !== 80 ? `:${process.env.API_PORT}` : '')}/`
   : '/'
 
+const SOCKET_URL = process.env.SOCKET_HOST
+  ? `${process.env.SOCKET_PROTOCOL}://${process.env.SOCKET_HOST}${(process.env.SOCKET_PORT !== 80 ? ':' + process.env.SOCKET_PORT : '')}/`
+  : process.env.SOCKET_URL || 'localhost:3020'
+
 function getClientEnvironment(publicUrl) {
   const raw = Object.keys(process.env)
     .filter(key => APP.test(key))
     .reduce(
       (env, key) => {
-        env[key] = process.env[key];
-        return env;
+        env[key] = process.env[key]
+        return env
       },
       {
         // Useful for determining whether we’re running in production mode.
         // Most importantly, it switches React into the correct mode.
         NODE_ENV: process.env.NODE_ENV || 'development',
         API_URL,
+        SOCKET_URL,
         // Useful for resolving the correct path to static assets in `public`.
         // For example, <img src={process.env.PUBLIC_URL + '/img/logo.png'} />.
         // This should only be used as an escape hatch. Normally you would put
         // images into the `src` and `import` them in code to get their paths.
-        PUBLIC_URL: publicUrl,
+        PUBLIC_URL: publicUrl
       }
-    );
+    )
   // Stringify all values so we can feed into Webpack DefinePlugin
   const stringified = {
     'process.env': Object.keys(raw).reduce((env, key) => {
-      env[key] = JSON.stringify(raw[key]);
-      return env;
-    }, {}),
-  };
+      env[key] = JSON.stringify(raw[key])
+      return env
+    }, {})
+  }
 
-  return { raw, stringified };
+  return { raw, stringified }
 }
 
-module.exports = getClientEnvironment;
+module.exports = getClientEnvironment

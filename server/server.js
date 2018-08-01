@@ -27,6 +27,7 @@ console.log( // eslint-disable-line no-console
 +-------------------------------------------------------------+
 | Worker #${padRight(worker.id + ' is started', 51)} |
 | Port:            ${padRight(config.port + '', 42)} |
+| Notifications:   ${padRight(config.socket.port + '', 42)} |
 +-------------------------------------------------------------+
 `)
 

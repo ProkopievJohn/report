@@ -14,7 +14,7 @@ class Main extends PureComponent {
         <div className="main">
           {/* <AppBar /> */}
           <Switch>
-            <Route component={() => null} />
+            <Route component={() => <div>test</div>} />
           </Switch>
         </div>
       )
@@ -24,7 +24,7 @@ class Main extends PureComponent {
       <div>
         <Switch>
           <Route path="/register" component={() => null} />
-          <Route component={() => null} />
+          <Route component={() => <div>test</div>} />
         </Switch>
       </div>
     )

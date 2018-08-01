@@ -16,3 +16,10 @@ export const LOGOUT = createActionConstants('LOGOUT')
 export const REGISTER = {
   ...createActionConstants('REGISTER')
 }
+
+export const SOCKET = {
+  ...createActionConstants('SOCKET'),
+  CONNECT: createActionConstants('SOCKET.CONNECT'),
+  EVENT: createActionConstants('SOCKET.EVENT'),
+  DISCONNECT: createActionConstants('SOCKET.DISCONNECT')
+}
