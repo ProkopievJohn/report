@@ -1,7 +1,7 @@
 import { ObjectId } from 'mongodb'
 import UserCollection from '../../../db/users'
 
-const logout = async (ctx) => {
+const logout = async ctx => {
   const { user = {} } = ctx.state
   const { _id: userId = '' } = user
 

@@ -1,8 +1,8 @@
+import KoaJWT from 'koa-jwt'
+import Router from 'koa-router'
 import { isAuthenticated } from '../../utils/isAuthenticated'
 import config from '../../../../config/server'
 import configureUsers from './users'
-import KoaJWT from 'koa-jwt'
-import Router from 'koa-router'
 
 export function configureSecureApi() {
   const router = Router({

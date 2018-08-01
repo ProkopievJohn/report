@@ -1,5 +1,5 @@
-import UserCollection from '../../../db/users'
 import JWT from 'jsonwebtoken'
+import UserCollection from '../../../db/users'
 import config from '../../../../config/server'
 import normalizeEmailAddress from '../../utils/normalizeEmailAddress'
 

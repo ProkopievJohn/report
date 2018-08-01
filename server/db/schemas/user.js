@@ -10,5 +10,11 @@ export default validator({
       verified: Boolean
     }
   },
+  companies: {
+    type: [{
+      companyId: String,
+      role: Number
+    }]
+  },
   lastSeen: Date
 })

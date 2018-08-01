@@ -1,9 +1,10 @@
 import { createServer } from 'http'
 import checkRequiredFiles from 'react-dev-utils/checkRequiredFiles'
+import { worker } from 'cluster'
+import configureSocket from './socket/configureSocket'
 import configureApi from './api'
 import config from '../config/server'
 import paths from '../config/paths'
-import { worker } from 'cluster'
 import connectDb from './db'
 
 // Warn and crash if required files are missing
@@ -34,6 +35,7 @@ export default async () => {
 
   const api = configureApi()
   const server = createServer(api.callback())
+  configureSocket(api, worker.id)
 
   server.listen(config.port, config.host, err => {
     if (err) {

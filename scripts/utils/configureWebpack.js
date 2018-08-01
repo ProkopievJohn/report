@@ -2,9 +2,9 @@ import webpack from 'webpack'
 import webpackConfig from '../../config/webpack.config.dev'
 import devMiddleware from 'webpack-dev-middleware'
 import hotMiddleware from 'webpack-hot-middleware'
+import { PassThrough } from 'stream'
 import paths from '../../config/paths'
 import config from '../../config/server'
-import { PassThrough } from 'stream'
 
 export default function configureWebpack(api) {
   const compiler = webpack(webpackConfig)

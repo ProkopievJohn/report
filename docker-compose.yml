@@ -9,6 +9,9 @@ services:
     ports:
       - "3000:3000"
     environment:
+      - SOCKET_PROTOCOL=http
+      - SOCKET_HOST=0.0.0.0
+      - SOCKET_PORT=3020
       - API_PROTOCOL=http
       - API_HOST=0.0.0.0
       - API_PORT=3010
@@ -24,11 +27,29 @@ services:
       - "3910:3910"
     links:
       - mongo
+      - socket
     environment:
       - MONGO_HOST=mongo
       - MONGO_PORT=27017
+      - SOCKET_HOST=0.0.0.0
+      - SOCKET_PORT=3020
       - API_HOST=0.0.0.0
       - API_PORT=3010
+  socket:
+    build: .
+    command: ["./node_modules/.bin/nodemon", "--watch", "server/socket", "--watch", "server/db", "bin/socket.js"]
+    expose:
+      - 3020
+    volumes:
+      - .:/app
+      - /app/node_modules
+    ports:
+      - "3020:3020"
+    environment:
+      - MONGO_HOST=mongo
+      - MONGO_PORT=27017
+      - SOCKET_HOST=0.0.0.0
+      - SOCKET_PORT=3020
   mongo:
     image: "mongo:4"
     ports:

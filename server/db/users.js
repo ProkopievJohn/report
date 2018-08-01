@@ -1,6 +1,6 @@
+import bcrypt from 'bcrypt'
 import { getDb } from './index'
 import UserSchema from './schemas/user'
-import bcrypt from 'bcrypt'
 
 export default {
   find(...opts) {

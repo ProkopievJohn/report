@@ -18,6 +18,11 @@ export default {
       // algorithm: 'RS256'
     }
   },
+  socket: {
+    systemToken: 'some-very-secret-token-that-must-be-secure-after-all',
+    port: parseInt(process.env.SOCKET_PORT) || 3020,
+    host: process.env.SOCKET_HOST || 'localhost'
+  },
   port: parseInt(process.env.API_PORT, 10) || 3010,
   host: process.env.API_HOST || 'localhost',
   debug: process.env.NODE_ENV !== 'production'
