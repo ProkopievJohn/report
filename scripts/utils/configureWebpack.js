@@ -20,13 +20,13 @@ export default function configureWebpack(api) {
       },
       publicPath: webpackConfig.output.publicPath,
       quiet: true,
+      historyApiFallback: true,
       watchOptions: {
         ignored: /node_modules/,
         aggregateTimeout: 1000
       },
       https: false,
-      host: config.host,
-      historyApiFallback: true
+      host: config.host
     }
   )
 

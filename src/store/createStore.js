@@ -26,7 +26,9 @@ export default () => {
       applyMiddleware(
         sagaMiddleware,
         routerMiddleware(history),
-        createLogger()
+        createLogger({
+          predicate: (getState, action) => !action.type.includes('@@redux-form')
+        })
       ),
       persistentStorage
     )

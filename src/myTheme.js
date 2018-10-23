@@ -1,8 +1,3 @@
-// import {
-//   cyan700, grey700, darkBlack, white, grey300, fullBlack
-// } from 'material-ui/styles/colors'
-// import { fade } from 'material-ui/utils/colorManipulator'
-
 export const primary = '#7894a0'
 export const primaryDark = '#4b6672'
 export const primaryLight = '#a8c4d1'

@@ -47,6 +47,7 @@ module.exports = {
     // require.resolve('webpack-dev-server/client') + '?/',
     // require.resolve('webpack/hot/dev-server'),
     require.resolve('react-dev-utils/webpackHotDevClient'),
+    `webpack-hot-middleware/client?path=http://localhost:${parseInt(process.env.PORT, 10) || 3000}/__webpack_hmr`,
     // Finally, this is your app's code:
     paths.appIndexJs
     // We include the app code last so that if there is a runtime error during

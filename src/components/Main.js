@@ -2,9 +2,11 @@ import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { createSelector, createStructuredSelector } from 'reselect'
 import { Route, Switch } from 'react-router-dom'
-// import Login from './public/Login'
+import Login from './public/Login'
 // import Register from './public/Register'
 // import Dashboard from './secure/dashboard'
+
+import './Main.scss'
 
 class Main extends PureComponent {
   render() {
@@ -21,10 +23,10 @@ class Main extends PureComponent {
     }
 
     return (
-      <div>
+      <div className="bg">
         <Switch>
           <Route path="/register" component={() => null} />
-          <Route component={() => <div>test</div>} />
+          <Route component={Login} />
         </Switch>
       </div>
     )

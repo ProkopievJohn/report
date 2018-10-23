@@ -5,13 +5,13 @@ let db
 
 export default function connectToDb() {
   return new Promise((resolve, reject) => {
-    MongoClient.connect(config.db.uri, config.db.options, (err, database) => {
+    MongoClient.connect(config.db.uri, config.db.options, (err, client) => {
       if (err) {
         return reject(err)
       }
-      resolve(database)
+      db = client.db(config.db.name)
+      resolve(db)
       process.env.NODE_ENV !== 'test' && console.log('[INFO] DB is connected')
-      db = database
     })
   })
 }
@@ -24,6 +24,7 @@ export async function ready() {
 }
 
 export const getDb = collection => {
+  console.log('collection: ', collection);
   if (!db) {
     throw new Error('DB is not connected!')
   }

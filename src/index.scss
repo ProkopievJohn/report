@@ -9,11 +9,18 @@
   --secondaryDark: #1f87ae;
   --secondaryLight: #95e9ff;
   --secondaryText: #fff;
-  --backgroundGrey: #e1e2e1;
+  --backgroundGrey: #f5f5f6;
+  --errorColor: #f44336;
 }
 
 body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+}
+
+.form-error {
+  font-size: 14px;
+  color: var(--errorColor);
+  font-weight: 300;
 }

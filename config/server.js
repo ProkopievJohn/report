@@ -3,9 +3,8 @@ const MONGO_PORT = process.env.MONGO_PORT ? process.env.MONGO_PORT : '27017'
 
 export default {
   db: {
-    uri: process.env.NODE_ENV === 'test'
-      ? `mongodb://${MONGO_HOST}:${MONGO_PORT}/api-test`
-      : `mongodb://${MONGO_HOST}:${MONGO_PORT}/report`,
+    name: process.env.NODE_ENV === 'test' ? 'api-test' : 'report',
+    uri: `mongodb://${MONGO_HOST}:${MONGO_PORT}`,
     options: {
       useNewUrlParser: true
     }

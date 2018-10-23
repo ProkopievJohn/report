@@ -12,6 +12,7 @@ function* login(action) {
   })
 
   const { payload } = response.payload
+  console.log('response: ', response)
 
   if (response.ok) {
     yield setToken(payload.token)
