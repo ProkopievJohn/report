@@ -41,6 +41,9 @@
         "asyncArrow": "always"
       }
     ],
+    "react/jsx-no-undef": [
+      2
+    ],
     "react/prop-types": [
       0
     ],

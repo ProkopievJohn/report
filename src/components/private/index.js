@@ -2,23 +2,21 @@ import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { createSelector, createStructuredSelector } from 'reselect'
 import { Route, Switch } from 'react-router-dom'
-import Login from './public/Login'
-import Private from './private'
 
-import './Main.scss'
+import AppBar from './AppBar'
 
-class Main extends PureComponent {
+class Private extends PureComponent {
   render() {
     const { isAuthenticated } = this.props
-    if (isAuthenticated) {
-      return <Private />
+    if (!isAuthenticated) {
+      return null
     }
 
     return (
-      <div className="bg">
+      <div className="main">
+        <AppBar />
         <Switch>
-          <Route path="/register" component={() => null} />
-          <Route component={Login} />
+          <Route component={() => <div>test</div>} />
         </Switch>
       </div>
     )
@@ -34,4 +32,4 @@ const selector = createStructuredSelector({
   isAuthenticated
 })
 
-export default connect(selector)(Main)
+export default connect(selector)(Private)

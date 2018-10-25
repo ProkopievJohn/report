@@ -24,7 +24,6 @@ export async function ready() {
 }
 
 export const getDb = collection => {
-  console.log('collection: ', collection);
   if (!db) {
     throw new Error('DB is not connected!')
   }
