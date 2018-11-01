@@ -15,7 +15,7 @@ class AppBar extends PureComponent {
         <Toolbar>
           <ButtonBase>
             <img width={50} height={50} src={lightLogo} />
-            <Typography variant="subtitle1" className={styles.title}>Report</Typography>
+            <Typography variant="h6" className={styles.title}>Report</Typography>
           </ButtonBase>
         </Toolbar>
       </AppTitleBar>

@@ -1,6 +1,6 @@
 import { combineReducers, createStore, applyMiddleware, compose } from 'redux'
 import { reducer as form } from 'redux-form'
-import { routerReducer as router, routerMiddleware } from 'react-router-redux'
+import { connectRouter, routerMiddleware } from 'connected-react-router'
 import { createBrowserHistory } from 'history'
 import createSagaMiddleware from 'redux-saga'
 import { createLogger } from 'redux-logger'
@@ -9,23 +9,21 @@ import saga from '../sagas'
 import persistentStorage from './persistentStorage'
 import socketConnector from './socketConnector'
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
-
 export default () => {
+  const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
   const reducer = combineReducers({
     ...reducers,
-    form,
-    router
+    form
   })
   const history = createBrowserHistory()
   const sagaMiddleware = createSagaMiddleware()
   const store = createStore(
-    reducer,
+    connectRouter(history)(reducer),
     composeEnhancers(
       socketConnector,
       applyMiddleware(
-        sagaMiddleware,
         routerMiddleware(history),
+        sagaMiddleware,
         createLogger({
           predicate: (getState, action) => !action.type.includes('@@redux-form')
         })

@@ -7,14 +7,14 @@ import { AUTH } from '../../constants'
 import { createAction } from '../../utils/createAction'
 import LoginForm from './LoginForm'
 
-import './Login.scss'
+import styles from './Login.scss'
 
 class Login extends PureComponent {
   render() {
     const { login } = this.props
     return (
-      <div className="login-page">
-        <Card className="login-card">
+      <div className={styles.loginPage}>
+        <Card className={styles.loginCard}>
           <CardHeader title="Login" />
           <CardContent>
             <LoginForm onLogin={login} />

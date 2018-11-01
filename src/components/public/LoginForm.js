@@ -4,7 +4,7 @@ import Button from '@material-ui/core/Button'
 import isEmail from 'validator/lib/isEmail'
 import CustomTextField from '../lib/CustomTextField'
 
-import './LoginForm.scss'
+import styles from './LoginForm.scss'
 
 class LoginForm extends PureComponent {
   render() {
@@ -17,9 +17,9 @@ class LoginForm extends PureComponent {
     } = this.props
 
     return (
-      <div className="login-form-container">
+      <div>
         <form onSubmit={handleSubmit}>
-          <div className="login-form-field">
+          <div className={styles.field}>
             <Field
               component={CustomTextField}
               fullWidth
@@ -31,7 +31,7 @@ class LoginForm extends PureComponent {
               required
             />
           </div>
-          <div className="login-form-field">
+          <div className={styles.field}>
             <Field
               component={CustomTextField}
               fullWidth
@@ -42,7 +42,7 @@ class LoginForm extends PureComponent {
               required
             />
           </div>
-          <div className="login-form-btn">
+          <div className={styles.btn}>
             <Button disabled={invalid || pristine || submitting} color="primary" type="submit">Login</Button>
           </div>
         </form>

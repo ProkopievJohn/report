@@ -1,11 +1,15 @@
-import React, { PureComponent } from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { createSelector, createStructuredSelector } from 'reselect'
-import { Route, Switch } from 'react-router-dom'
+import { Switch, Route, withRouter } from 'react-router-dom'
+import Grid from '@material-ui/core/Grid'
+import Paper from '@material-ui/core/Paper'
 
 import AppBar from './AppBar'
+import TempBlock from './TempBlock'
+import Sider from './Sider'
 
-class Private extends PureComponent {
+class Private extends Component {
   render() {
     const { isAuthenticated } = this.props
     if (!isAuthenticated) {
@@ -15,9 +19,22 @@ class Private extends PureComponent {
     return (
       <div className="main">
         <AppBar />
-        <Switch>
-          <Route component={() => <div>test</div>} />
-        </Switch>
+        <TempBlock />
+        <Grid container spacing={24} className="main-content">
+          <Grid item xs={3}>
+            <Switch>
+              <Route path="/:path?" component={Sider} />
+            </Switch>
+          </Grid>
+          <Grid item xs={9}>
+            <Paper>
+              <Switch>
+                <Route exact path="/" component={() => 'dashboard'} />
+                <Route path="/projects" component={() => 'projects'} />
+              </Switch>
+            </Paper>
+          </Grid>
+        </Grid>
       </div>
     )
   }
@@ -32,4 +49,4 @@ const selector = createStructuredSelector({
   isAuthenticated
 })
 
-export default connect(selector)(Private)
+export default withRouter(connect(selector)(Private))

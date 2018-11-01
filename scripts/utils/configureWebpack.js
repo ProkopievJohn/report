@@ -60,6 +60,9 @@ export default function configureWebpack(api) {
       writeHead: (state, headers) => {
         ctx.state = state
         ctx.set(headers)
+      },
+      end: content => {
+        ctx.body = content
       }
     }, next)
   })

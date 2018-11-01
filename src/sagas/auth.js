@@ -1,6 +1,5 @@
 import { fork, call, put, takeEvery } from 'redux-saga/effects'
 import { startSubmit, stopSubmit } from 'redux-form'
-import { push } from 'react-router-redux'
 import { AUTH, REGISTER, LOGOUT } from '../constants'
 import { callApi, setToken, callSecureApi, getToken } from './api'
 
@@ -12,7 +11,6 @@ function* login(action) {
   })
 
   const { payload } = response.payload
-  console.log('response: ', response)
 
   if (response.ok) {
     yield setToken(payload.token)
@@ -86,7 +84,7 @@ function* logout(action) {
     })
   }
 
-  yield put(push('/'))
+  // yield put(push('/'))
 }
 
 function* verifyToken(action) {
