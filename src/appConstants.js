@@ -27,6 +27,9 @@ export const UI = {
   MODAL: {
     PROJECT: {
       ADD: createActionConstants('UI.MODAL.PROJECT.ADD')
+    },
+    ABILITY: {
+      ADD: createActionConstants('UI.MODAL.ABILITY.ADD')
     }
   }
 }
@@ -34,4 +37,9 @@ export const UI = {
 export const PROJECT = {
   ...createActionConstants('PROJECT'),
   ADD: createActionConstants('PROJECT.ADD')
+}
+
+export const ABILITY = {
+  ...createActionConstants('ABILITY'),
+  ADD: createActionConstants('ABILITY.ADD')
 }

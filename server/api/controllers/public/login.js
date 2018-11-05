@@ -4,7 +4,7 @@ import { ObjectID } from 'mongodb'
 import UserCollection from '../../../db/users'
 import CompanyCollection from '../../../db/companies'
 import config from '../../../../config/server'
-import { normalizeEmailAddress } from '../../utils/normalizeEmailAddress'
+import { normalizeEmailAddress } from '../../utils/normalize'
 import { STATUS_ACTIVE } from '../../../constants'
 
 const login = async (ctx, next) => {

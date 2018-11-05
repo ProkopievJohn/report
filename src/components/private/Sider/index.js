@@ -10,6 +10,7 @@ import IconButton from '@material-ui/core/IconButton'
 import AddIcon from '@material-ui/icons/Add'
 
 import AddProjectModal from 'components/private/Projects/AddProjectModal'
+import AddAbilityModal from 'components/private/Abilities/AddAbilityModal'
 import { createAction } from 'utils/createAction'
 import { UI } from 'appConstants'
 
@@ -22,7 +23,7 @@ class Sider extends PureComponent {
   }
 
   render() {
-    const { match, toggleAddProject } = this.props
+    const { match, toggleAddProject, toggleAddAbility } = this.props
 
     return (
       <Paper className={styles.container}>
@@ -52,8 +53,26 @@ class Sider extends PureComponent {
               </IconButton>
             </ListItemSecondaryAction>
           </MenuItem>
+          <MenuItem
+            button
+            selected={match.params.path === 'abilities'}
+            classes={{ selected: styles.selected }}
+            onClick={() => this.handleListItemClick('/abilities')}
+          >
+            <ListItemText primary="Abilities" />
+            <ListItemSecondaryAction>
+              <IconButton
+                onClick={toggleAddAbility}
+                aria-label="Add Ability"
+                classes={{ root: match.params.path === 'abilities' ? styles.active : '' }}
+              >
+                <AddIcon fontSize="small" />
+              </IconButton>
+            </ListItemSecondaryAction>
+          </MenuItem>
         </MenuList>
 
+        <AddAbilityModal />
         <AddProjectModal />
       </Paper>
     )
@@ -62,5 +81,6 @@ class Sider extends PureComponent {
 
 export default connect(null, {
   push,
-  toggleAddProject: createAction(UI.MODAL.PROJECT.ADD)
+  toggleAddProject: createAction(UI.MODAL.PROJECT.ADD),
+  toggleAddAbility: createAction(UI.MODAL.ABILITY.ADD)
 })(Sider)

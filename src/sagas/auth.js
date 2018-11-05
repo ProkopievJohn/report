@@ -30,7 +30,7 @@ function* login(action) {
       payload
     })
     yield put(stopSubmit('LoginForm', {
-      _error: payload.message
+      _error: payload.message || 'Cannot Login'
     }))
   }
 }
@@ -67,7 +67,7 @@ function* register(action) {
       payload
     })
     yield put(stopSubmit('RegisterForm', {
-      _error: payload.message
+      _error: payload.message || 'Cannot Register'
     }))
   }
 }

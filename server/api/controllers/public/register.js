@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt'
 import JWT from 'jsonwebtoken'
 
-import { normalizeEmailAddress } from '../../utils/normalizeEmailAddress'
+import { normalizeEmailAddress } from '../../utils/normalize'
 import { STATUS_ACTIVE, ROLE_OWNER } from '../../../constants'
 import CompanyCollection from '../../../db/companies'
 import UserCollection from '../../../db/users'

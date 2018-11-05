@@ -30,7 +30,7 @@ function* addProject(action) {
       payload
     })
     yield put(stopSubmit('AddProjectForm', {
-      _error: payload.message
+      _error: payload.message || 'Cannot Create Project'
     }))
   }
 }

@@ -8,6 +8,7 @@ export default ({
   helperText = ' ',
   error: customError,
   errorText = null,
+  customizeValue = v => v,
   ...custom
 }) => (
   <TextField
@@ -15,6 +16,7 @@ export default ({
     error={(!!touched && !!error) || !!errorText || customError}
     helperText={(touched && error) || errorText || helperText}
     {...input}
+    value={customizeValue(input.value)}
     {...custom}
   />
 )

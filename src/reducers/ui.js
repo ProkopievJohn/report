@@ -12,10 +12,6 @@ export function makeToggleReducer(actionConst, defaultValue = false) {
   }
 }
 
-const project = combineReducers({
-  add: makeToggleReducer(UI.MODAL.PROJECT.ADD)
-})
-
 export function offlineTime(state = 0, action) {
   switch (action.type) {
     case SOCKET.CONNECT.SUCCESS:
@@ -33,7 +29,16 @@ export function offlineTime(state = 0, action) {
   }
 }
 
+const project = combineReducers({
+  add: makeToggleReducer(UI.MODAL.PROJECT.ADD)
+})
+
+const ability = combineReducers({
+  add: makeToggleReducer(UI.MODAL.ABILITY.ADD)
+})
+
 export default combineReducers({
+  offlineTime,
   project,
-  offlineTime
+  ability
 })

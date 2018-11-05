@@ -37,6 +37,16 @@ export default function responseHelpers(ctx, next) {
     }
   }
 
+  ctx.conflict = message => {
+    ctx.response.status = 409
+    ctx.response.body = {
+      payload: {
+        message: message || 'Conflict'
+      },
+      success: false
+    }
+  }
+
   ctx.fail = (message, error) => {
     ctx.response.status = 500
     ctx.response.body = {
@@ -47,5 +57,6 @@ export default function responseHelpers(ctx, next) {
       success: false
     }
   }
+
   return next()
 }

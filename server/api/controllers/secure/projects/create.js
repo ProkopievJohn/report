@@ -1,6 +1,6 @@
 import { STATUS_ACTIVE } from '../../../../constants'
 import ProjectCollection from '../../../../db/projects'
-import transformDate from '../../../utils/transformDate'
+import { normalizeDate } from '../../../utils/normalize'
 
 async function create(ctx, next) {
   const { _id: creatorId, company: { companyId } } = ctx.state.user
@@ -8,8 +8,8 @@ async function create(ctx, next) {
   const { name: pName, description: pDescription, since: pSince, to: pTo } = ctx.request.body
   const name = pName.trim()
   const description = pDescription.trim()
-  const since = transformDate(pSince)
-  const to = transformDate(pTo)
+  const since = normalizeDate(pSince)
+  const to = normalizeDate(pTo)
 
   if (!name || !description || !since || !to) {
     return ctx.invalidData('Empty Fields')
@@ -36,10 +36,6 @@ async function create(ctx, next) {
   } catch (err) {
     ctx.fail('Create Project error', err)
   }
-
-  ctx.resolve({
-    a: 'a'
-  })
 }
 
 export default create

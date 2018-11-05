@@ -42,6 +42,15 @@ export async function callApi(url, params = {}) {
     }
   } catch (err) {
     console.log('[ERROR]', err)
+    const { response = { data: { payload: {} } } } = err
+    console.log('response: ', response)
+
+    return {
+      ok: response.status < 300,
+      status: response.status,
+      headers: new Headers(response.headers),
+      payload: response.data
+    }
   }
 }
 
