@@ -6,20 +6,32 @@ function createActionConstants(name) {
   }
 }
 
+export const DATE_FORMAT = 'MM-DD-YYYY'
+export const TIME_FORMAT = 'HH:mm'
+
 export const AUTH = {
   ...createActionConstants('AUTH'),
+  REGISTER: createActionConstants('AUTH.REGISTER'),
   VERIFY: createActionConstants('AUTH.VERIFY')
 }
 
 export const LOGOUT = createActionConstants('LOGOUT')
 
-export const REGISTER = {
-  ...createActionConstants('REGISTER')
-}
-
 export const SOCKET = {
   ...createActionConstants('SOCKET'),
   CONNECT: createActionConstants('SOCKET.CONNECT'),
-  EVENT: createActionConstants('SOCKET.EVENT'),
   DISCONNECT: createActionConstants('SOCKET.DISCONNECT')
+}
+
+export const UI = {
+  MODAL: {
+    PROJECT: {
+      ADD: createActionConstants('UI.MODAL.PROJECT.ADD')
+    }
+  }
+}
+
+export const PROJECT = {
+  ...createActionConstants('PROJECT'),
+  ADD: createActionConstants('PROJECT.ADD')
 }

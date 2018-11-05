@@ -1,10 +1,11 @@
 import React, { PureComponent } from 'react'
+import { Link } from 'react-router-dom'
 import { reduxForm, Field } from 'redux-form'
 import Button from '@material-ui/core/Button'
 import isEmail from 'validator/lib/isEmail'
 import CustomTextField from '../lib/CustomTextField'
 
-import styles from './LoginForm.scss'
+import styles from './Public.scss'
 
 class LoginForm extends PureComponent {
   render() {
@@ -42,7 +43,8 @@ class LoginForm extends PureComponent {
               required
             />
           </div>
-          <div className={styles.btn}>
+          <div className={styles.btns}>
+            <Link to="register" className={styles.link}>Go to Register</Link>
             <Button disabled={invalid || pristine || submitting} color="primary" type="submit">Login</Button>
           </div>
         </form>

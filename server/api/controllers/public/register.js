@@ -1,25 +1,41 @@
 import bcrypt from 'bcrypt'
 import JWT from 'jsonwebtoken'
-import config from '../../../../config/server'
+
+import { normalizeEmailAddress } from '../../utils/normalizeEmailAddress'
+import { STATUS_ACTIVE, ROLE_OWNER } from '../../../constants'
+import CompanyCollection from '../../../db/companies'
 import UserCollection from '../../../db/users'
-import normalizeEmailAddress from '../../utils/normalizeEmailAddress'
+import config from '../../../../config/server'
 
 const register = async (ctx, next) => {
-  const {email: bodyEmail, password} = ctx.request.body
+  const { name, email: bodyEmail, password } = ctx.request.body
 
   const email = normalizeEmailAddress(bodyEmail)
+  const companyName = name.trim()
 
-  if (!email || !password) {
+  if (!companyName || !email || !password) {
     return ctx.invalidData('Email and Password is required')
   }
 
-  const existUser = await UserCollection.findOne({'email.address': email}, {_id: 1})
-
-  if (existUser) {
-    return ctx.invalidData('Email is exist')
-  }
-
   try {
+    const existUser = await UserCollection.findOne({'email.address': email}, {_id: 1})
+
+    if (existUser) {
+      return ctx.invalidData('Email is exist')
+    }
+
+    const company = (await CompanyCollection.insert({
+      createdAt: new Date(),
+      modifiedAt: new Date(),
+      name: companyName,
+      status: STATUS_ACTIVE,
+      history: [{
+        action: 'created',
+        createdAt: new Date(),
+        modifiedValues: {}
+      }]
+    })).ops[0]
+
     const user = (await UserCollection.insert({
       createdAt: new Date(),
       modifiedAt: new Date(),
@@ -27,12 +43,23 @@ const register = async (ctx, next) => {
       email: {
         address: email,
         verified: false
-      }
+      },
+      company: {
+        companyId: company._id.toString(),
+        role: ROLE_OWNER
+      },
+      lastSeen: new Date(),
+      history: [{
+        action: 'created',
+        createdAt: new Date(),
+        modifiedValues: {}
+      }]
     })).ops[0]
 
     const rawToken = {
       _id: user._id,
-      email: user.email.address
+      email: user.email.address,
+      company: user.company
     }
 
     const token = JWT.sign(
@@ -43,7 +70,12 @@ const register = async (ctx, next) => {
 
     ctx.resolve({
       user: {
-        ...user, password: null
+        ...user,
+        password: null,
+        company: {
+          ...user.company,
+          name: company.name
+        }
       },
       token
     })

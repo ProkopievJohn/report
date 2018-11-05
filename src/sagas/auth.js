@@ -1,6 +1,8 @@
 import { fork, call, put, takeEvery } from 'redux-saga/effects'
 import { startSubmit, stopSubmit } from 'redux-form'
-import { AUTH, REGISTER, LOGOUT } from '../constants'
+import { push } from 'connected-react-router'
+
+import { AUTH, LOGOUT } from 'appConstants'
 import { callApi, setToken, callSecureApi, getToken } from './api'
 
 function* login(action) {
@@ -17,7 +19,7 @@ function* login(action) {
     yield put({
       type: AUTH.SUCCESS,
       payload: {
-        payload: payload.user,
+        user: payload.user,
         token: payload.token
       }
     })
@@ -36,23 +38,32 @@ function* login(action) {
 function* register(action) {
   yield put(startSubmit('RegisterForm'))
 
+  const body = {
+    ...action.payload,
+    confirmEmail: undefined,
+    confirmPassword: undefined
+  }
+
   const response = yield call(callApi, 'public/register', {
     method: 'POST',
-    body: action.payload
+    body
   })
 
-  const { payload = {} } = response.payload
+  const { payload } = response.payload
   if (response.ok) {
+    yield setToken(payload.token)
     yield put({
-      type: REGISTER.SUCCESS,
+      type: AUTH.REGISTER.SUCCESS,
       payload: {
-        ...payload
+        user: payload.user,
+        token: payload.token
       }
     })
     yield put(stopSubmit('RegisterForm'))
+    yield put(push('/'))
   } else {
     yield put({
-      type: REGISTER.FAIL,
+      type: AUTH.REGISTER.FAIL,
       payload
     })
     yield put(stopSubmit('RegisterForm', {
@@ -84,7 +95,7 @@ function* logout(action) {
     })
   }
 
-  // yield put(push('/'))
+  yield put(push('/'))
 }
 
 function* verifyToken(action) {
@@ -97,11 +108,12 @@ function* verifyToken(action) {
 
   if (response.ok) {
     const { payload } = response.payload
+    yield setToken(payload.token)
     yield put({
       type: AUTH.VERIFY.SUCCESS,
       payload: {
-        token: payload.token,
-        user: payload.user
+        user: payload.user,
+        token: payload.token
       }
     })
   } else {
@@ -114,7 +126,7 @@ function* verifyToken(action) {
 
 export default function* authSaga(store) {
   yield fork(takeEvery, AUTH.REQUEST, login)
-  yield fork(takeEvery, REGISTER.REQUEST, register)
+  yield fork(takeEvery, AUTH.REGISTER.REQUEST, register)
   yield fork(takeEvery, LOGOUT.REQUEST, logout)
   yield fork(takeEvery, AUTH.VERIFY.REQUEST, verifyToken)
   if (store.getState().auth.token) {

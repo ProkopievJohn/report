@@ -1,7 +1,11 @@
 import JWT from 'jsonwebtoken'
+import { ObjectID } from 'mongodb'
+
 import UserCollection from '../../../db/users'
+import CompanyCollection from '../../../db/companies'
 import config from '../../../../config/server'
-import normalizeEmailAddress from '../../utils/normalizeEmailAddress'
+import { normalizeEmailAddress } from '../../utils/normalizeEmailAddress'
+import { STATUS_ACTIVE } from '../../../constants'
 
 const login = async (ctx, next) => {
   const {email: bodyEmail, password} = ctx.request.body
@@ -18,10 +22,17 @@ const login = async (ctx, next) => {
     })
 
     if (user) {
+      const company = await CompanyCollection.findOne({
+        _id: ObjectID(user.company.companyId),
+        status: STATUS_ACTIVE
+      }, { fields: { name: 1 } })
+
       const rawToken = {
         _id: user._id,
-        email: user.email
+        email: user.email,
+        company: user.company
       }
+
       const token = JWT.sign(
         rawToken,
         config.jwt.secret,
@@ -30,7 +41,12 @@ const login = async (ctx, next) => {
 
       ctx.resolve({
         user: {
-          ...user, password: null
+          ...user,
+          company: {
+            ...user.company,
+            name: company.name
+          },
+          password: null
         },
         token
       })

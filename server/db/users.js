@@ -3,30 +3,30 @@ import { getDb } from './index'
 import UserSchema from './schemas/user'
 
 export default {
+  dbName: 'users',
   find(...opts) {
-    const db = getDb('users')
-    return db.find(...opts)
+    const db = getDb(this.dbName)
+    return db.find(...opts).toArray()
   },
-
   findOne(...opts) {
-    const db = getDb('users')
+    const db = getDb(this.dbName)
     return db.findOne(...opts)
   },
 
   async insert(doc) {
-    const db = getDb('users')
+    const db = getDb(this.dbName)
     await UserSchema.validate(doc)
     return db.insert(doc)
   },
   async update(doc) {
-    const db = getDb('users')
+    const db = getDb(this.dbName)
     await UserSchema.validate(doc)
     return db.update({_id: doc._id}, doc)
   },
   async authenticate(credentials) {
     const { email, password } = credentials
 
-    const db = getDb('users')
+    const db = getDb(this.dbName)
     const user = await db.findOne({
       'email.address': email
     })

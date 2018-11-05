@@ -3,6 +3,7 @@ import Router from 'koa-router'
 import { isAuthenticated } from '../../utils/isAuthenticated'
 import config from '../../../../config/server'
 import configureUsers from './users'
+import configureProjects from './projects'
 
 export function configureSecureApi() {
   const router = Router({
@@ -11,6 +12,7 @@ export function configureSecureApi() {
   router.use(KoaJWT(config.jwt))
   router.use(isAuthenticated)
   router.use(...configureUsers())
+  router.use(...configureProjects())
 
   return router.routes()
 }

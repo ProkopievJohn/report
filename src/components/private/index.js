@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { createSelector, createStructuredSelector } from 'reselect'
 import { Switch, Route, withRouter } from 'react-router-dom'
@@ -9,7 +9,7 @@ import AppBar from './AppBar'
 import TempBlock from './TempBlock'
 import Sider from './Sider'
 
-class Private extends Component {
+class Private extends PureComponent {
   render() {
     const { isAuthenticated } = this.props
     if (!isAuthenticated) {

@@ -6,19 +6,19 @@ import CardHeader from '@material-ui/core/CardHeader'
 
 import { AUTH } from 'appConstants'
 import { createAction } from 'utils/createAction'
-import LoginForm from './LoginForm'
+import RegisterForm from './RegisterForm'
 
 import styles from './Public.scss'
 
-class Login extends PureComponent {
+class Register extends PureComponent {
   render() {
-    const { login } = this.props
+    const { register } = this.props
     return (
       <div className={styles.page}>
         <Card className={styles.card}>
-          <CardHeader title="Login" />
+          <CardHeader title="Register" />
           <CardContent>
-            <LoginForm onLogin={login} />
+            <RegisterForm onRegister={register} />
           </CardContent>
         </Card>
       </div>
@@ -27,5 +27,5 @@ class Login extends PureComponent {
 }
 
 export default connect(null, {
-  login: createAction(AUTH)
-})(Login)
+  register: createAction(AUTH.REGISTER)
+})(Register)

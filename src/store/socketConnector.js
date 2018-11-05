@@ -1,10 +1,10 @@
-import Client from 'socket.io-client'
-import { SOCKET } from '../constants'
+import io from 'socket.io-client'
+import { SOCKET } from 'appConstants'
 
 export default function socketConnector(next) {
   return (reducer, initialState, enhancer) => {
     const store = next(reducer, initialState, enhancer)
-    const socket = Client(process.env.SOCKET_URL)
+    const socket = io(process.env.SOCKET_URL)
 
     if (module.hot) {
       module.hot.status(state => {
@@ -19,8 +19,8 @@ export default function socketConnector(next) {
       type: SOCKET.CONNECT.SUCCESS
     }))
 
-    socket.on('event', payload => store.dispatch({
-      type: SOCKET.EVENT.REQUEST,
+    socket.on('event', ({ type, payload }) => store.dispatch({
+      type: `SOCKET.${type.toUpperCase().replace(/:/g, '.')}.REQUEST`,
       payload
     }))
 

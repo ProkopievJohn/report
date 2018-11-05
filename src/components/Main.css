@@ -1,5 +1,6 @@
 .bg {
   background-color: var(--backgroundGrey);
+  min-height: 100vh;
 }
 
 .main-content {

@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { push } from 'connected-react-router'
 import Paper from '@material-ui/core/Paper'
@@ -9,16 +9,20 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction'
 import IconButton from '@material-ui/core/IconButton'
 import AddIcon from '@material-ui/icons/Add'
 
+import AddProjectModal from 'components/private/Projects/AddProjectModal'
+import { createAction } from 'utils/createAction'
+import { UI } from 'appConstants'
+
 import styles from './Sider.scss'
 
-class Sider extends Component {
+class Sider extends PureComponent {
   handleListItemClick = path => {
     const { location, push } = this.props
     location.pathname !== path && push(path)
   }
 
   render() {
-    const { match } = this.props
+    const { match, toggleAddProject } = this.props
 
     return (
       <Paper className={styles.container}>
@@ -39,15 +43,24 @@ class Sider extends Component {
           >
             <ListItemText primary="Projects" />
             <ListItemSecondaryAction>
-              <IconButton aria-label="Add Project">
-                <AddIcon />
+              <IconButton
+                onClick={toggleAddProject}
+                aria-label="Add Project"
+                classes={{ root: match.params.path === 'projects' ? styles.active : '' }}
+              >
+                <AddIcon fontSize="small" />
               </IconButton>
             </ListItemSecondaryAction>
           </MenuItem>
         </MenuList>
+
+        <AddProjectModal />
       </Paper>
     )
   }
 }
 
-export default connect(null, { push })(Sider)
+export default connect(null, {
+  push,
+  toggleAddProject: createAction(UI.MODAL.PROJECT.ADD)
+})(Sider)

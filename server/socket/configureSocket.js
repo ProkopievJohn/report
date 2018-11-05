@@ -1,9 +1,10 @@
-import client from 'socket.io-client'
+import Io from 'socket.io-client'
 import config from '../../config/server'
 import setupMiddleware from './middleware'
 
-export default function configureProductionSocket(api, workerId) {
-  const socket = client(`http://${config.socket.host}:${config.socket.port}`)
+export default function configureSocket(api, workerId) {
+  const url = `http://${config.socket.host}:${config.socket.port}/`
+  const socket = Io(url)
 
   socket.on('connect', () => {
     socket.emit('system', {
@@ -12,22 +13,11 @@ export default function configureProductionSocket(api, workerId) {
     })
   })
 
-  const executeNotify = (topic, event, companyId, creator) => socket.emit('notify', {
+  const executeNotify = (topic, event, companyId) => socket.emit('notify', {
     topic,
     event,
-    companyId,
-    creator
+    companyId
   })
 
-  const executeClientNotify = (topic, event, userId) => socket.emit('client:notify', {
-    topic,
-    event,
-    userId
-  })
-
-  setupMiddleware({
-    api,
-    executeNotify,
-    executeClientNotify
-  })
+  setupMiddleware(api, executeNotify)
 }

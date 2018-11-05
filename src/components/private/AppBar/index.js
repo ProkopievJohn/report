@@ -1,4 +1,6 @@
 import React, { PureComponent } from 'react'
+import { connect } from 'react-redux'
+import { createSelector, createStructuredSelector } from 'reselect'
 import AppTitleBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import ButtonBase from '@material-ui/core/ButtonBase'
@@ -10,6 +12,7 @@ import styles from './AppBar.scss'
 
 class AppBar extends PureComponent {
   render() {
+    // const { user } = this.props
     return (
       <AppTitleBar position="static">
         <Toolbar>
@@ -22,5 +25,13 @@ class AppBar extends PureComponent {
     )
   }
 }
+const user = createSelector(
+  state => state.auth.user,
+  user => user
+)
 
-export default AppBar
+const selector = createStructuredSelector({
+  user
+})
+
+export default connect(selector)(AppBar)

@@ -10,14 +10,14 @@ services:
       - "3000:3000"
     environment:
       - SOCKET_PROTOCOL=http
-      - SOCKET_HOST=0.0.0.0
+      - SOCKET_HOST=localhost
       - SOCKET_PORT=3020
       - API_PROTOCOL=http
       - API_HOST=0.0.0.0
       - API_PORT=3010
   api:
     build: .
-    command: ["./node_modules/.bin/nodemon", "--watch", "server/api", "--watch", "server/db", "bin/api.js"]
+    command: ["./node_modules/.bin/nodemon", "--watch", "server/api", "--watch", "server/socket/configureSocket.js", "--watch", "server/socket/middleware.js", "--watch",  "server/db", "bin/api.js"]
     volumes:
       - .:/app
       - /app/node_modules
@@ -31,13 +31,13 @@ services:
     environment:
       - MONGO_HOST=mongo
       - MONGO_PORT=27017
-      - SOCKET_HOST=0.0.0.0
+      - SOCKET_HOST=socket
       - SOCKET_PORT=3020
       - API_HOST=0.0.0.0
       - API_PORT=3010
   socket:
     build: .
-    command: ["./node_modules/.bin/nodemon", "--watch", "server/socket", "--watch", "server/db", "bin/socket.js"]
+    command: ["./node_modules/.bin/nodemon", "--watch", "server/socket/index.js", "--watch", "server/db", "bin/socket.js"]
     expose:
       - 3020
     volumes:
@@ -45,11 +45,6 @@ services:
       - /app/node_modules
     ports:
       - "3020:3020"
-    environment:
-      - MONGO_HOST=mongo
-      - MONGO_PORT=27017
-      - SOCKET_HOST=0.0.0.0
-      - SOCKET_PORT=3020
   mongo:
     image: "mongo:4"
     ports:
