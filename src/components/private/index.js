@@ -8,6 +8,7 @@ import Paper from '@material-ui/core/Paper'
 import AppBar from './AppBar'
 import TempBlock from './TempBlock'
 import Sider from './Sider'
+import Abilities from './Abilities'
 
 class Private extends PureComponent {
   render() {
@@ -31,7 +32,7 @@ class Private extends PureComponent {
               <Switch>
                 <Route exact path="/" component={() => 'dashboard'} />
                 <Route path="/projects" component={() => 'projects'} />
-                <Route path="/abilities" component={() => 'abilities'} />
+                <Route path="/abilities" component={Abilities} />
               </Switch>
             </Paper>
           </Grid>

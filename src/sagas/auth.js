@@ -1,8 +1,8 @@
-import { fork, call, put, takeEvery } from 'redux-saga/effects'
+import { fork, call, put, takeEvery, takeLatest } from 'redux-saga/effects'
 import { startSubmit, stopSubmit } from 'redux-form'
 import { push } from 'connected-react-router'
 
-import { AUTH, LOGOUT } from 'appConstants'
+import { AUTH, LOGOUT, ABILITY } from 'appConstants'
 import { callApi, setToken, callSecureApi, getToken } from './api'
 
 function* login(action) {
@@ -15,14 +15,7 @@ function* login(action) {
   const { payload } = response.payload
 
   if (response.ok) {
-    yield setToken(payload.token)
-    yield put({
-      type: AUTH.SUCCESS,
-      payload: {
-        user: payload.user,
-        token: payload.token
-      }
-    })
+    yield put({ type: AUTH.DONE.REQUEST, payload })
     yield put(stopSubmit('LoginForm'))
   } else {
     yield put({
@@ -51,14 +44,7 @@ function* register(action) {
 
   const { payload } = response.payload
   if (response.ok) {
-    yield setToken(payload.token)
-    yield put({
-      type: AUTH.REGISTER.SUCCESS,
-      payload: {
-        user: payload.user,
-        token: payload.token
-      }
-    })
+    yield put({ type: AUTH.DONE.REQUEST, payload })
     yield put(stopSubmit('RegisterForm'))
     yield put(push('/'))
   } else {
@@ -106,22 +92,23 @@ function* verifyToken(action) {
     }
   })
 
+  const { payload } = response.payload
+
   if (response.ok) {
-    const { payload } = response.payload
-    yield setToken(payload.token)
-    yield put({
-      type: AUTH.VERIFY.SUCCESS,
-      payload: {
-        user: payload.user,
-        token: payload.token
-      }
-    })
+    yield put({ type: AUTH.DONE.REQUEST, payload })
   } else {
     yield put({
       type: LOGOUT.REQUEST,
-      payload: response.payload.payload
+      payload
     })
   }
+}
+
+function* authDone({ payload }) {
+  yield setToken(payload.token)
+  yield put({ type: AUTH.DONE.SUCCESS, payload })
+
+  yield put({ type: ABILITY.REQUEST })
 }
 
 export default function* authSaga(store) {
@@ -129,6 +116,7 @@ export default function* authSaga(store) {
   yield fork(takeEvery, AUTH.REGISTER.REQUEST, register)
   yield fork(takeEvery, LOGOUT.REQUEST, logout)
   yield fork(takeEvery, AUTH.VERIFY.REQUEST, verifyToken)
+  yield fork(takeLatest, AUTH.DONE.REQUEST, authDone)
   if (store.getState().auth.token) {
     yield put({
       type: AUTH.VERIFY.REQUEST,

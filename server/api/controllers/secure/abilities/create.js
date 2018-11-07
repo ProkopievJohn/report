@@ -24,7 +24,7 @@ async function create(ctx, next) {
       return ctx.conflict('Ability already exists')
     }
 
-    const ability = (await AbilitiesCollection.insert({
+    const ability = (await AbilitiesCollection.insertOne({
       createdAt: new Date(),
       modifiedAt: new Date(),
       companyId,

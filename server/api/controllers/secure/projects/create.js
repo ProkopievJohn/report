@@ -16,7 +16,7 @@ async function create(ctx, next) {
   }
 
   try {
-    const project = (await ProjectCollection.insert({
+    const project = (await ProjectCollection.insertOne({
       createdAt: new Date(),
       modifiedAt: new Date(),
       companyId,

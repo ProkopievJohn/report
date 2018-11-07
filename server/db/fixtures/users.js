@@ -10,7 +10,7 @@ export async function createUsersWithAuth() {
   const user = {
     password,
     email,
-    user: (await UserCollection.insert({
+    user: (await UserCollection.insertOne({
       createdAt: new Date(),
       modifiedAt: new Date(),
       password: bcrypt.hashSync(password, 10),

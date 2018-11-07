@@ -7,3 +7,7 @@ export const ROLE_DELETED = 100
 export const STATUS_ACTIVE = 10
 export const STATUS_INACTIVE = 20
 export const STATUS_DELETED = 100
+
+export const PAGE_SIZE = {
+  ABILITIES: 20
+}

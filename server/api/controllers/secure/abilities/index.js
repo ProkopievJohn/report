@@ -1,4 +1,5 @@
 import Router from 'koa-router'
+import list from './list'
 import create from './create'
 
 export default function configureRouter() {
@@ -6,6 +7,7 @@ export default function configureRouter() {
     prefix: '/abilities'
   })
 
+  router.get('/', list)
   router.post('/', create)
 
   return [router.routes(), router.allowedMethods()]

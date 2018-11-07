@@ -24,7 +24,7 @@ const register = async (ctx, next) => {
       return ctx.invalidData('Email is exist')
     }
 
-    const company = (await CompanyCollection.insert({
+    const company = (await CompanyCollection.insertOne({
       createdAt: new Date(),
       modifiedAt: new Date(),
       name: companyName,
@@ -36,7 +36,7 @@ const register = async (ctx, next) => {
       }]
     })).ops[0]
 
-    const user = (await UserCollection.insert({
+    const user = (await UserCollection.insertOne({
       createdAt: new Date(),
       modifiedAt: new Date(),
       password: bcrypt.hashSync(password, 10),

@@ -12,10 +12,10 @@ export default {
     return db.findOne(...opts)
   },
 
-  async insert(doc) {
+  async insertOne(doc) {
     const db = getDb(this.dbName)
     await CompanySchema.validate(doc)
-    return db.insert(doc)
+    return db.insertOne(doc)
   },
   async update(doc) {
     const db = getDb(this.dbName)

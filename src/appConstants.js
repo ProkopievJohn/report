@@ -11,6 +11,7 @@ export const TIME_FORMAT = 'HH:mm'
 
 export const AUTH = {
   ...createActionConstants('AUTH'),
+  DONE: createActionConstants('AUTH.DONE'),
   REGISTER: createActionConstants('AUTH.REGISTER'),
   VERIFY: createActionConstants('AUTH.VERIFY')
 }
@@ -20,7 +21,10 @@ export const LOGOUT = createActionConstants('LOGOUT')
 export const SOCKET = {
   ...createActionConstants('SOCKET'),
   CONNECT: createActionConstants('SOCKET.CONNECT'),
-  DISCONNECT: createActionConstants('SOCKET.DISCONNECT')
+  DISCONNECT: createActionConstants('SOCKET.DISCONNECT'),
+  ABILITY: {
+    CREATE: createActionConstants('SOCKET.ABILITY.CREATE')
+  }
 }
 
 export const UI = {
