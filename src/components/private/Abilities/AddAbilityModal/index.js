@@ -8,20 +8,16 @@ import DialogContent from '@material-ui/core/DialogContent'
 import { createAction } from 'utils/createAction'
 import { UI, ABILITY } from 'appConstants'
 import ModalExtends from 'components/lib/ModalExtends'
-import AddAbilityForm from '../AddAbilityForm'
+import AbilityForm from '../AbilityForm'
 
 class AddAbilityModal extends ModalExtends {
   render() {
     const { open, addAbility } = this.props
     return (
-      <Dialog
-        open={open}
-        onClose={this.handleClose}
-        aria-labelledby="form-dialog-title"
-      >
+      <Dialog open={open} onClose={this.handleClose} >
         <DialogTitle>Create Ability</DialogTitle>
         <DialogContent>
-          <AddAbilityForm onClose={this.handleClose} addAbility={addAbility} />
+          <AbilityForm onClose={this.handleClose} submitAbility={addAbility} />
         </DialogContent>
       </Dialog>
     )

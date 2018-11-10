@@ -9,6 +9,10 @@ function createActionConstants(name) {
 export const DATE_FORMAT = 'MM-DD-YYYY'
 export const TIME_FORMAT = 'HH:mm'
 
+export const STATUS_ACTIVE = 10
+export const STATUS_INACTIVE = 20
+export const STATUS_DELETED = 100
+
 export const AUTH = {
   ...createActionConstants('AUTH'),
   DONE: createActionConstants('AUTH.DONE'),
@@ -23,7 +27,9 @@ export const SOCKET = {
   CONNECT: createActionConstants('SOCKET.CONNECT'),
   DISCONNECT: createActionConstants('SOCKET.DISCONNECT'),
   ABILITY: {
-    CREATE: createActionConstants('SOCKET.ABILITY.CREATE')
+    CREATE: createActionConstants('SOCKET.ABILITY.CREATE'),
+    UPDATE: createActionConstants('SOCKET.ABILITY.UPDATE'),
+    DELETE: createActionConstants('SOCKET.ABILITY.DELETE')
   }
 }
 
@@ -33,7 +39,9 @@ export const UI = {
       ADD: createActionConstants('UI.MODAL.PROJECT.ADD')
     },
     ABILITY: {
-      ADD: createActionConstants('UI.MODAL.ABILITY.ADD')
+      ADD: createActionConstants('UI.MODAL.ABILITY.ADD'),
+      EDIT: createActionConstants('UI.MODAL.ABILITY.EDIT'),
+      REMOVE: createActionConstants('UI.MODAL.ABILITY.REMOVE')
     }
   }
 }
@@ -45,5 +53,9 @@ export const PROJECT = {
 
 export const ABILITY = {
   ...createActionConstants('ABILITY'),
-  ADD: createActionConstants('ABILITY.ADD')
+  ADD: createActionConstants('ABILITY.ADD'),
+  EDIT: createActionConstants('ABILITY.EDIT'),
+  REMOVE: createActionConstants('ABILITY.REMOVE'),
+  UPDATED: createActionConstants('ABILITY.UPDATED'),
+  DELETED: createActionConstants('ABILITY.DELETED')
 }

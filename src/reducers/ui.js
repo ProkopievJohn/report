@@ -29,12 +29,25 @@ export function offlineTime(state = 0, action) {
   }
 }
 
+export function abilityId(state = null, action) {
+  switch (action.type) {
+    case UI.MODAL.ABILITY.EDIT.REQUEST:
+    case UI.MODAL.ABILITY.REMOVE.REQUEST:
+      return action.payload || null
+    default:
+      return state
+  }
+}
+
 const project = combineReducers({
   add: makeToggleReducer(UI.MODAL.PROJECT.ADD)
 })
 
 const ability = combineReducers({
-  add: makeToggleReducer(UI.MODAL.ABILITY.ADD)
+  add: makeToggleReducer(UI.MODAL.ABILITY.ADD),
+  edit: makeToggleReducer(UI.MODAL.ABILITY.EDIT),
+  remove: makeToggleReducer(UI.MODAL.ABILITY.REMOVE),
+  id: abilityId
 })
 
 export default combineReducers({

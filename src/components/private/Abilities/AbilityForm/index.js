@@ -4,9 +4,18 @@ import Button from '@material-ui/core/Button'
 
 import CustomTextField from 'components/lib/CustomTextField'
 
-import styles from './AddAbilityForm.scss'
+import styles from './AbilityForm.scss'
 
-class AddAbilityForm extends PureComponent {
+class AbilityForm extends PureComponent {
+  componentDidMount() {
+    const { ability, initialize } = this.props
+    if (ability) {
+      const name = ability.get('name')
+      const description = ability.get('description')
+      initialize({ name, description })
+    }
+  }
+
   render() {
     const {
       handleSubmit,
@@ -14,14 +23,19 @@ class AddAbilityForm extends PureComponent {
       submitting,
       invalid,
       onClose,
-      error
+      error,
+      submitText = 'Submit',
+      cancelText = 'Cancel'
     } = this.props
+
+    const disabled = this.props.hasOwnProperty('disabled') && this.props.disabled !== false
 
     return (
       <div className={styles.container}>
         <form onSubmit={handleSubmit}>
           <div className={styles.field}>
             <Field
+              disabled={disabled}
               component={CustomTextField}
               fullWidth
               name="name"
@@ -35,6 +49,7 @@ class AddAbilityForm extends PureComponent {
           </div>
           <div className={styles.field}>
             <Field
+              disabled={disabled}
               component={CustomTextField}
               fullWidth
               name="description"
@@ -49,8 +64,14 @@ class AddAbilityForm extends PureComponent {
             />
           </div>
           <div className={styles.btn}>
-            <Button color="secondary" onClick={() => onClose && onClose()}>Cancel</Button>
-            <Button disabled={invalid || pristine || submitting} color="primary" type="submit">Create</Button>
+            {onClose && <Button color="secondary" onClick={onClose}>{cancelText}</Button>}
+            <Button
+              disabled={(!disabled || submitting) && (invalid || pristine || submitting)}
+              color="primary"
+              type="submit"
+            >
+              {submitText}
+            </Button>
           </div>
         </form>
       </div>
@@ -68,12 +89,12 @@ const validate = (values, props) => {
 }
 
 const handleSubmitForm = (data, dispatch, props) => {
-  const { addAbility } = props
-  addAbility(data)
+  const { submitAbility } = props
+  submitAbility(data)
 }
 
 export default reduxForm({
-  form: 'AddAbilityForm',
+  form: 'AbilityForm',
   validate,
   onSubmit: handleSubmitForm
-})(AddAbilityForm)
+})(AbilityForm)

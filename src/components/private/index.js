@@ -28,7 +28,7 @@ class Private extends PureComponent {
             </Switch>
           </Grid>
           <Grid item xs={9}>
-            <Paper>
+            <Paper className="main-content">
               <Switch>
                 <Route exact path="/" component={() => 'dashboard'} />
                 <Route path="/projects" component={() => 'projects'} />

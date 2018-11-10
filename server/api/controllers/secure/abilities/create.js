@@ -2,7 +2,7 @@ import { STATUS_ACTIVE, STATUS_DELETED } from '../../../../constants'
 import AbilitiesCollection from '../../../../db/abilities'
 import { normalizeNameUpper } from '../../../utils/normalize'
 
-async function create(ctx, next) {
+async function create(ctx) {
   const { _id: creatorId, company: { companyId } } = ctx.state.user
 
   const { name: pName, description: pDescription = '' } = ctx.request.body
@@ -21,7 +21,7 @@ async function create(ctx, next) {
     }, { fields: { _id: 1 } })
 
     if (duplicate) {
-      return ctx.conflict('Ability already exists')
+      return ctx.conflict('Ability Already Exists')
     }
 
     const ability = (await AbilitiesCollection.insertOne({
@@ -40,9 +40,13 @@ async function create(ctx, next) {
     })).ops[0]
 
     ctx.resolve({ ability })
-    ctx.notifyAbility({ type: 'create', companyId, ability })
+    ctx.notifyAbility({
+      type: 'create',
+      companyId,
+      abilityId: ability._id.toString()
+    })
   } catch (err) {
-    ctx.fail('Create Ability error', err)
+    ctx.fail('Create Ability Error', err)
   }
 }
 

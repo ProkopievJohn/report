@@ -49,7 +49,7 @@ class Sider extends PureComponent {
                 aria-label="Add Project"
                 classes={{ root: match.params.path === 'projects' ? styles.active : '' }}
               >
-                <AddIcon fontSize="small" />
+                <AddIcon />
               </IconButton>
             </ListItemSecondaryAction>
           </MenuItem>
@@ -66,7 +66,7 @@ class Sider extends PureComponent {
                 aria-label="Add Ability"
                 classes={{ root: match.params.path === 'abilities' ? styles.active : '' }}
               >
-                <AddIcon fontSize="small" />
+                <AddIcon />
               </IconButton>
             </ListItemSecondaryAction>
           </MenuItem>
