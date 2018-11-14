@@ -30,6 +30,9 @@ export const SOCKET = {
     CREATE: createActionConstants('SOCKET.ABILITY.CREATE'),
     UPDATE: createActionConstants('SOCKET.ABILITY.UPDATE'),
     DELETE: createActionConstants('SOCKET.ABILITY.DELETE')
+  },
+  PROJECT: {
+    CREATE: createActionConstants('SOCKET.PROJECT.CREATE')
   }
 }
 

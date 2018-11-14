@@ -1,7 +1,7 @@
 import { fork, call, put, takeEvery } from 'redux-saga/effects'
 import { startSubmit, stopSubmit } from 'redux-form'
 
-import { PROJECT, UI } from 'appConstants'
+import { PROJECT, UI, SOCKET } from 'appConstants'
 import { callSecureApi } from './api'
 
 function* loadProjects() {
@@ -53,4 +53,5 @@ function* addProject(action) {
 export default function* projectsSaga() {
   yield fork(takeEvery, PROJECT.REQUEST, loadProjects)
   yield fork(takeEvery, PROJECT.ADD.REQUEST, addProject)
+  yield fork(takeEvery, SOCKET.PROJECT.CREATE.REQUEST, loadProjects)
 }
