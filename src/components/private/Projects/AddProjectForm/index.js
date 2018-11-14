@@ -3,10 +3,10 @@ import { reduxForm, Field, getFormValues } from 'redux-form'
 import { connect } from 'react-redux'
 import { createStructuredSelector, createSelector } from 'reselect'
 import Button from '@material-ui/core/Button'
-// import moment from 'moment'
 
 import CustomTextField from 'components/lib/CustomTextField'
 import CustomDatePicker from 'components/lib/CustomDatePicker'
+import AbilitiesInput from 'components/private/helpers/form/AbilitiesInput'
 
 import styles from './AddProjectForm.scss'
 
@@ -74,6 +74,17 @@ class AddProjectForm extends PureComponent {
               disabled={!sinceDate}
               shouldDisableDate={date => date.isBefore(sinceDate)}
               required
+            />
+          </div>
+          <div className={styles.field}>
+            <Field
+              component={AbilitiesInput}
+              fullWidth
+              name="abilities"
+              type="abilities"
+              label="Project Abilities"
+              error={!!error}
+              errorText={error}
             />
           </div>
           <div className={styles.btn}>

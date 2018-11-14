@@ -10,6 +10,12 @@ export default validator({
   createdAt: Date,
   modifiedAt: Date,
   status: Number,
+  abilities: {
+    type: [{
+      abilityId: String,
+      quantity: Number
+    }]
+  },
   history: {
     type: [{
       createdAt: Date,

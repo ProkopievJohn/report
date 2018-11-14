@@ -1,4 +1,3 @@
-// import { combineReducers } from 'redux'
 import { Map, List } from 'immutable'
 
 import { AUTH, LOGOUT, ABILITY } from 'appConstants'

@@ -5,7 +5,7 @@ import { normalizeDate } from '../../../utils/normalize'
 async function create(ctx, next) {
   const { _id: creatorId, company: { companyId } } = ctx.state.user
 
-  const { name: pName, description: pDescription, since: pSince, to: pTo } = ctx.request.body
+  const { name: pName, description: pDescription, since: pSince, to: pTo, abilities: pAbilities } = ctx.request.body
   const name = pName.trim()
   const description = pDescription.trim()
   const since = normalizeDate(pSince)
@@ -16,6 +16,8 @@ async function create(ctx, next) {
   }
 
   try {
+    const abilities = (pAbilities || []).map(a => ({ ...a, quantity: Number(a.quantity) }))
+
     const project = (await ProjectCollection.insertOne({
       createdAt: new Date(),
       modifiedAt: new Date(),
@@ -23,6 +25,7 @@ async function create(ctx, next) {
       creatorId,
       name,
       description,
+      abilities,
       status: STATUS_ACTIVE,
       history: [{
         action: 'created',
@@ -32,7 +35,11 @@ async function create(ctx, next) {
     })).ops[0]
 
     ctx.resolve({ project })
-    ctx.notifyProject({ type: 'create', companyId, project })
+    ctx.notifyProject({
+      type: 'create',
+      companyId,
+      projectId: project._id.toString()
+    })
   } catch (err) {
     ctx.fail('Create Project error', err)
   }

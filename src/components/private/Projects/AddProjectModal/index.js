@@ -17,7 +17,6 @@ class AddProjectModal extends ModalExtends {
       <Dialog
         open={open}
         onClose={this.handleClose}
-        aria-labelledby="form-dialog-title"
       >
         <DialogTitle>Create Project</DialogTitle>
         <DialogContent>
