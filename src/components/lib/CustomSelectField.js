@@ -12,12 +12,17 @@ export default ({
   helperText = ' ',
   error: customError,
   errorText = null,
+  renderValue = selected => selected.join('; '),
+  multiple,
   ...custom
 }) => (
   <FormControl error={(!!touched && !!error) || !!errorText || customError} {...custom}>
     <InputLabel>{label}</InputLabel>
     <Select
       {...input}
+      value={multiple ? (input.value || []) : input.value}
+      multiple={multiple}
+      renderValue={multiple ? renderValue : undefined}
     >
       {custom.values.map(v => (<MenuItem key={v.id} value={v.id}>{v.name}</MenuItem>))}
     </Select>

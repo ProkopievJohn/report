@@ -43,6 +43,10 @@ const project = combineReducers({
   add: makeToggleReducer(UI.MODAL.PROJECT.ADD)
 })
 
+const user = combineReducers({
+  add: makeToggleReducer(UI.MODAL.USER.ADD)
+})
+
 const ability = combineReducers({
   add: makeToggleReducer(UI.MODAL.ABILITY.ADD),
   edit: makeToggleReducer(UI.MODAL.ABILITY.EDIT),
@@ -53,5 +57,6 @@ const ability = combineReducers({
 export default combineReducers({
   offlineTime,
   project,
-  ability
+  ability,
+  user
 })

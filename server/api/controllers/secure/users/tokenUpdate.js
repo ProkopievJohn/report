@@ -22,7 +22,7 @@ export default async function tokenUpdate(ctx, next) {
     const company = await CompanyCollection.findOne({
       _id: ObjectID(user.company.companyId),
       status: STATUS_ACTIVE
-    }, { fields: { name: 1 } })
+    }, { projection: { name: 1 } })
 
     const rawToken = {
       _id: user._id,

@@ -13,6 +13,9 @@ export const STATUS_ACTIVE = 10
 export const STATUS_INACTIVE = 20
 export const STATUS_DELETED = 100
 
+export const ROLE_ADMIN = 10
+export const ROLE_USER = 20
+
 export const AUTH = {
   ...createActionConstants('AUTH'),
   DONE: createActionConstants('AUTH.DONE'),
@@ -33,6 +36,9 @@ export const SOCKET = {
   },
   PROJECT: {
     CREATE: createActionConstants('SOCKET.PROJECT.CREATE')
+  },
+  USER: {
+    CREATE: createActionConstants('SOCKET.USER.CREATE')
   }
 }
 
@@ -40,6 +46,9 @@ export const UI = {
   MODAL: {
     PROJECT: {
       ADD: createActionConstants('UI.MODAL.PROJECT.ADD')
+    },
+    USER: {
+      ADD: createActionConstants('UI.MODAL.USER.ADD')
     },
     ABILITY: {
       ADD: createActionConstants('UI.MODAL.ABILITY.ADD'),
@@ -52,6 +61,11 @@ export const UI = {
 export const PROJECT = {
   ...createActionConstants('PROJECT'),
   ADD: createActionConstants('PROJECT.ADD')
+}
+
+export const USER = {
+  ...createActionConstants('USER'),
+  ADD: createActionConstants('USER.ADD')
 }
 
 export const ABILITY = {

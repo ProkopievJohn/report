@@ -1,0 +1,22 @@
+.container {
+  min-width: 400px;
+}
+
+.chip {
+  margin: 5px;
+}
+
+.field {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.btn {
+  text-align: right;
+}
+
+.inputComponent {
+  display: flex;
+  flex-wrap: wrap;
+}

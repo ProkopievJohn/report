@@ -9,7 +9,7 @@ async function byId(ctx) {
   try {
     const request = { _id: ObjectID(abilityId), companyId, status: { $ne: STATUS_DELETED } }
     const ability = await AbilitiesCollection.findOne(request, {
-      fields: { name: 1, description: 1, status: 1, createdAt: 1, modifiedAt: 1 }
+      projection: { name: 1, description: 1, status: 1, createdAt: 1, modifiedAt: 1 }
     })
 
     if (!ability) {

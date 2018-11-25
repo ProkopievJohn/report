@@ -20,7 +20,7 @@ async function edit(ctx) {
       companyId,
       name,
       status: { $ne: STATUS_DELETED }
-    }, { fields: { _id: 1 } })
+    }, { projection: { _id: 1 } })
 
     if (duplicate) {
       return ctx.conflict('Ability Already Exists')

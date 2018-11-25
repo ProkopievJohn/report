@@ -2,7 +2,7 @@ import { fork, call, put, takeEvery, takeLatest } from 'redux-saga/effects'
 import { startSubmit, stopSubmit } from 'redux-form'
 import { push } from 'connected-react-router'
 
-import { AUTH, LOGOUT, ABILITY, PROJECT } from 'appConstants'
+import { AUTH, LOGOUT, ABILITY, PROJECT, USER } from 'appConstants'
 import { callApi, setToken, callSecureApi, getToken } from './api'
 
 function* login(action) {
@@ -110,6 +110,7 @@ function* authDone({ payload }) {
 
   yield put({ type: ABILITY.REQUEST })
   yield put({ type: PROJECT.REQUEST })
+  yield put({ type: USER.REQUEST })
 }
 
 export default function* authSaga(store) {

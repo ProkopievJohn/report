@@ -40,6 +40,7 @@ const register = async (ctx, next) => {
       createdAt: new Date(),
       modifiedAt: new Date(),
       password: bcrypt.hashSync(password, 10),
+      status: STATUS_ACTIVE,
       email: {
         address: email,
         verified: false

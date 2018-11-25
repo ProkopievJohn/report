@@ -10,7 +10,9 @@ import IconButton from '@material-ui/core/IconButton'
 import AddIcon from '@material-ui/icons/Add'
 
 import AddProjectModal from 'components/private/Projects/AddProjectModal'
+import AddUserModal from 'components/private/Users/AddUserModal'
 import AddAbilityModal from 'components/private/Abilities/AddAbilityModal'
+
 import { createAction } from 'utils/createAction'
 import { UI } from 'appConstants'
 
@@ -23,7 +25,7 @@ class Sider extends PureComponent {
   }
 
   render() {
-    const { match, toggleAddProject, toggleAddAbility } = this.props
+    const { match, toggleAddProject, toggleAddAbility, toggleAddUser } = this.props
 
     return (
       <Paper className={styles.container}>
@@ -55,6 +57,23 @@ class Sider extends PureComponent {
           </MenuItem>
           <MenuItem
             button
+            selected={match.params.path === 'users'}
+            classes={{ selected: styles.selected }}
+            onClick={() => this.handleListItemClick('/users')}
+          >
+            <ListItemText primary="Users" />
+            <ListItemSecondaryAction>
+              <IconButton
+                onClick={toggleAddUser}
+                aria-label="Add User"
+                classes={{ root: match.params.path === 'users' ? styles.active : '' }}
+              >
+                <AddIcon />
+              </IconButton>
+            </ListItemSecondaryAction>
+          </MenuItem>
+          <MenuItem
+            button
             selected={match.params.path === 'abilities'}
             classes={{ selected: styles.selected }}
             onClick={() => this.handleListItemClick('/abilities')}
@@ -72,8 +91,9 @@ class Sider extends PureComponent {
           </MenuItem>
         </MenuList>
 
-        <AddAbilityModal />
         <AddProjectModal />
+        <AddUserModal />
+        <AddAbilityModal />
       </Paper>
     )
   }
@@ -82,5 +102,6 @@ class Sider extends PureComponent {
 export default connect(null, {
   push,
   toggleAddProject: createAction(UI.MODAL.PROJECT.ADD),
+  toggleAddUser: createAction(UI.MODAL.USER.ADD),
   toggleAddAbility: createAction(UI.MODAL.ABILITY.ADD)
 })(Sider)

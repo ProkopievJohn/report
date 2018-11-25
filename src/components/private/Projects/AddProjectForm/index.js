@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button'
 
 import CustomTextField from 'components/lib/CustomTextField'
 import CustomDatePicker from 'components/lib/CustomDatePicker'
-import AbilitiesInput from 'components/private/helpers/form/AbilitiesInput'
+import AbilitiesInputWithQuantity from 'components/private/helpers/form/AbilitiesInputWithQuantity'
 
 import styles from './AddProjectForm.scss'
 
@@ -78,7 +78,7 @@ class AddProjectForm extends PureComponent {
           </div>
           <div className={styles.field}>
             <Field
-              component={AbilitiesInput}
+              component={AbilitiesInputWithQuantity}
               fullWidth
               name="abilities"
               type="abilities"

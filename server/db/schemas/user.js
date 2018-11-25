@@ -4,6 +4,8 @@ export default validator({
   createdAt: Date,
   modifiedAt: Date,
   password: String,
+  status: Number,
+  name: String,
   email: {
     type: {
       address: String,

@@ -9,6 +9,7 @@ import AppBar from './AppBar'
 import TempBlock from './TempBlock'
 import Sider from './Sider'
 import Abilities from './Abilities'
+import Users from './Users'
 import Projects from './Projects'
 
 class Private extends PureComponent {
@@ -32,6 +33,7 @@ class Private extends PureComponent {
             <Paper className="main-content">
               <Switch>
                 <Route exact path="/" component={() => 'dashboard'} />
+                <Route path="/users" component={Users} />
                 <Route path="/projects" component={Projects} />
                 <Route path="/abilities" component={Abilities} />
               </Switch>

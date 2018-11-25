@@ -18,7 +18,7 @@ import AddIcon from '@material-ui/icons/Add'
 import CustomSelectField from 'components/lib/CustomSelectField'
 import CustomTextField from 'components/lib/CustomTextField'
 
-import styles from './AbilitiesInput.scss'
+import styles from './AbilitiesInputWithQuantity.scss'
 
 class Form extends PureComponent {
   render() {
@@ -83,7 +83,7 @@ const handleSubmitForm = (data, dispatch, props) => {
 }
 
 const AbilityForm = reduxForm({
-  form: 'AbilityToProjectForm',
+  form: 'AbilitiesWithQuantityToProjectForm',
   validate,
   onSubmit: handleSubmitForm
 })(Form)
@@ -109,7 +109,7 @@ class AbilitiesDialog extends PureComponent {
   }
 }
 
-class AbilitiesInput extends PureComponent {
+class AbilitiesInputWithQuantity extends PureComponent {
   state = {
     openModal: false
   }
@@ -201,4 +201,4 @@ const selector = createStructuredSelector({
   abilities
 })
 
-export default connect(selector)(AbilitiesInput)
+export default connect(selector)(AbilitiesInputWithQuantity)
