@@ -17,7 +17,7 @@ function* loadProjects() {
 }
 
 function* addProject(action) {
-  yield put(startSubmit('AddProjectForm'))
+  yield put(startSubmit('ProjectForm'))
   const { abilities, to } = action.payload
   const response = yield call(callSecureApi, 'projects/', {
     method: 'POST',
@@ -37,14 +37,14 @@ function* addProject(action) {
         payload: payload.project
       }
     })
-    yield put(stopSubmit('AddProjectForm'))
+    yield put(stopSubmit('ProjectForm'))
     yield put({ type: UI.MODAL.PROJECT.ADD.REQUEST })
   } else {
     yield put({
       type: PROJECT.ADD.FAIL,
       payload
     })
-    yield put(stopSubmit('AddProjectForm', {
+    yield put(stopSubmit('ProjectForm', {
       _error: payload.message || 'Cannot Create Project'
     }))
   }

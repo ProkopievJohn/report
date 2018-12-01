@@ -11,7 +11,7 @@ import ModalExtends from 'components/lib/ModalExtends'
 import AbilityForm from '../AbilityForm'
 
 class RemoveAbilityModal extends ModalExtends {
-  handleRemoveAbility = ability => {
+  handleRemoveAbility = () => {
     const { removeAbility, _id } = this.props
     removeAbility({ _id })
   }

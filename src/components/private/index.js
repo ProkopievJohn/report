@@ -6,11 +6,35 @@ import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
 
 import AppBar from './AppBar'
-import TempBlock from './TempBlock'
 import Sider from './Sider'
 import Abilities from './Abilities'
 import Users from './Users'
 import Projects from './Projects'
+import ProjectPage from './Projects/ProjectPage'
+
+class SiderRouters extends PureComponent {
+  render() {
+    return (
+      <Grid container spacing={24}>
+        <Grid item xs={3}>
+          <Switch>
+            <Route path="/:path?" component={Sider} />
+          </Switch>
+        </Grid>
+        <Grid item xs={9}>
+          <Paper>
+            <Switch>
+              <Route exact path="/" component={() => 'dashboard'} />
+              <Route path="/users" component={Users} />
+              <Route path="/projects" component={Projects} />
+              <Route path="/abilities" component={Abilities} />
+            </Switch>
+          </Paper>
+        </Grid>
+      </Grid>
+    )
+  }
+}
 
 class Private extends PureComponent {
   render() {
@@ -22,24 +46,12 @@ class Private extends PureComponent {
     return (
       <div className="main">
         <AppBar />
-        <TempBlock />
-        <Grid container spacing={24} className="main-content">
-          <Grid item xs={3}>
-            <Switch>
-              <Route path="/:path?" component={Sider} />
-            </Switch>
-          </Grid>
-          <Grid item xs={9}>
-            <Paper className="main-content">
-              <Switch>
-                <Route exact path="/" component={() => 'dashboard'} />
-                <Route path="/users" component={Users} />
-                <Route path="/projects" component={Projects} />
-                <Route path="/abilities" component={Abilities} />
-              </Switch>
-            </Paper>
-          </Grid>
-        </Grid>
+        <div className="main-content">
+          <Switch>
+            <Route path="/projects/:projectId" component={ProjectPage} />
+            <Route component={SiderRouters} />
+          </Switch>
+        </div>
       </div>
     )
   }

@@ -6,6 +6,7 @@ import isEmail from 'validator/lib/isEmail'
 
 import Button from '@material-ui/core/Button'
 import Chip from '@material-ui/core/Chip'
+import InputAdornment from '@material-ui/core/InputAdornment'
 
 import CustomTextField from 'components/lib/CustomTextField'
 import CustomSelectField from 'components/lib/CustomSelectField'
@@ -63,11 +64,24 @@ class UserForm extends PureComponent {
           </div>
           <div className={styles.field}>
             <Field
+              component={CustomTextField}
+              fullWidth
+              name="rate"
+              type="number"
+              label="Rate"
+              error={!!error}
+              required
+              InputProps={{
+                endAdornment: <InputAdornment position="end">$/h</InputAdornment>
+              }}
+            />
+          </div>
+          <div className={styles.field}>
+            <Field
               component={CustomSelectField}
               fullWidth
               values={[{ id: ROLE_USER, name: 'User' }, { id: ROLE_ADMIN, name: 'Admin' }]}
               name="role"
-              type="number"
               label="Role"
               error={!!error}
               required
@@ -127,7 +141,7 @@ class UserForm extends PureComponent {
 
 const validate = (values, props) => {
   const errors = {}
-  const { name, email, confirmEmail, abilities } = values
+  const { name, email, confirmEmail, abilities, rate } = values
   if (!name) {
     errors.name = 'Required'
   }
@@ -145,6 +159,9 @@ const validate = (values, props) => {
   }
   if (!abilities || !abilities.length) {
     errors.abilities = 'Required'
+  }
+  if (!rate) {
+    errors.rate = 'Required'
   }
   return errors
 }

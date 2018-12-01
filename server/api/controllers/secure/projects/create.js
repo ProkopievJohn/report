@@ -26,6 +26,8 @@ async function create(ctx, next) {
       name,
       description,
       abilities,
+      since,
+      to,
       status: STATUS_ACTIVE,
       history: [{
         action: 'created',

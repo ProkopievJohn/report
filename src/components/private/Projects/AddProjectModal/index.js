@@ -8,7 +8,7 @@ import DialogContent from '@material-ui/core/DialogContent'
 import { createAction } from 'utils/createAction'
 import { UI, PROJECT } from 'appConstants'
 import ModalExtends from 'components/lib/ModalExtends'
-import AddProjectForm from '../AddProjectForm'
+import ProjectForm from '../ProjectForm'
 
 class AddProjectModal extends ModalExtends {
   render() {
@@ -20,7 +20,7 @@ class AddProjectModal extends ModalExtends {
       >
         <DialogTitle>Create Project</DialogTitle>
         <DialogContent>
-          <AddProjectForm onClose={this.handleClose} addProject={addProject} />
+          <ProjectForm onClose={this.handleClose} addProject={addProject} />
         </DialogContent>
       </Dialog>
     )

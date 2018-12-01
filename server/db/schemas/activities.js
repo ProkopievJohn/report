@@ -1,25 +1,17 @@
 import validator from 'sjv'
 
 export default validator({
+  companyId: String,
+  creatorId: String,
+  projectId: String,
+  userId: String,
+  abilityId: String,
+  hours: Number,
+  sonce: Date,
+  to: Date,
   createdAt: Date,
   modifiedAt: Date,
-  password: String,
   status: Number,
-  rate: Number,
-  name: String,
-  email: {
-    type: {
-      address: String,
-      verified: Boolean
-    }
-  },
-  company: {
-    type: {
-      companyId: String,
-      role: Number
-    }
-  },
-  lastSeen: Date,
   history: {
     type: [{
       createdAt: Date,

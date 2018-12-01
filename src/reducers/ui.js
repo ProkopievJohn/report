@@ -39,6 +39,33 @@ export function abilityId(state = null, action) {
   }
 }
 
+export function activityProject(state = null, action) {
+  switch (action.type) {
+    case UI.MODAL.ACTIVITY.USER.ADD.REQUEST:
+      return (action.payload && action.payload.projectId) || null
+    default:
+      return state
+  }
+}
+
+export function activityUser(state = null, action) {
+  switch (action.type) {
+    case UI.MODAL.ACTIVITY.USER.ADD.REQUEST:
+      return (action.payload && action.payload.userId) || null
+    default:
+      return state
+  }
+}
+
+export function activityAbility(state = null, action) {
+  switch (action.type) {
+    case UI.MODAL.ACTIVITY.USER.ADD.REQUEST:
+      return (action.payload && action.payload.abilityId) || null
+    default:
+      return state
+  }
+}
+
 const project = combineReducers({
   add: makeToggleReducer(UI.MODAL.PROJECT.ADD)
 })
@@ -54,9 +81,17 @@ const ability = combineReducers({
   id: abilityId
 })
 
+const activity = combineReducers({
+  add: makeToggleReducer(UI.MODAL.ACTIVITY.USER.ADD),
+  projectId: activityProject,
+  userId: activityUser,
+  abilityId: activityAbility
+})
+
 export default combineReducers({
   offlineTime,
   project,
   ability,
+  activity,
   user
 })

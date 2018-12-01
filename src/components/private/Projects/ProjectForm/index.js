@@ -2,15 +2,41 @@ import React, { PureComponent } from 'react'
 import { reduxForm, Field, getFormValues } from 'redux-form'
 import { connect } from 'react-redux'
 import { createStructuredSelector, createSelector } from 'reselect'
+import moment from 'moment'
 import Button from '@material-ui/core/Button'
 
 import CustomTextField from 'components/lib/CustomTextField'
 import CustomDatePicker from 'components/lib/CustomDatePicker'
 import AbilitiesInputWithQuantity from 'components/private/helpers/form/AbilitiesInputWithQuantity'
 
-import styles from './AddProjectForm.scss'
+import styles from './ProjectForm.scss'
 
-class AddProjectForm extends PureComponent {
+class ProjectForm extends PureComponent {
+  componentDidMount() {
+    const { project, initialize } = this.props
+    if (project) {
+      const name = project.get('name')
+      const description = project.get('description')
+      const since = moment(project.get('since'))
+      const to = moment(project.get('to'))
+      const abilities = project.get('abilities')
+      initialize({ name, description, since, to, abilities })
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { project: prevProject } = this.props
+    const { project, initialized, initialize } = nextProps
+    if (!prevProject && project && !initialized) {
+      const name = project.get('name')
+      const description = project.get('description')
+      const since = moment(project.get('since'))
+      const to = moment(project.get('to'))
+      const abilities = project.get('abilities')
+      initialize({ name, description, since, to, abilities })
+    }
+  }
+
   render() {
     const {
       handleSubmit,
@@ -19,7 +45,9 @@ class AddProjectForm extends PureComponent {
       invalid,
       onClose,
       error,
-      sinceDate
+      sinceDate,
+      disabled,
+      hideBtns
     } = this.props
 
     return (
@@ -27,6 +55,7 @@ class AddProjectForm extends PureComponent {
         <form onSubmit={handleSubmit}>
           <div className={styles.field}>
             <Field
+              disabled={disabled}
               component={CustomTextField}
               fullWidth
               name="name"
@@ -39,6 +68,7 @@ class AddProjectForm extends PureComponent {
           </div>
           <div className={styles.field}>
             <Field
+              disabled={disabled}
               component={CustomTextField}
               fullWidth
               error={!!error}
@@ -56,6 +86,7 @@ class AddProjectForm extends PureComponent {
           </div>
           <div className={styles.field}>
             <Field
+              disabled={disabled}
               component={CustomDatePicker}
               name="since"
               label="Since"
@@ -71,13 +102,14 @@ class AddProjectForm extends PureComponent {
               error={!!error}
               autoOk
               invalidLabel="Please select"
-              disabled={!sinceDate}
+              disabled={!sinceDate || disabled}
               shouldDisableDate={date => date.isBefore(sinceDate)}
               required
             />
           </div>
           <div className={styles.field}>
             <Field
+              disabled={disabled}
               component={AbilitiesInputWithQuantity}
               fullWidth
               name="abilities"
@@ -87,10 +119,10 @@ class AddProjectForm extends PureComponent {
               errorText={error}
             />
           </div>
-          <div className={styles.btn}>
+          {!hideBtns && <div className={styles.btn}>
             <Button color="secondary" onClick={() => onClose && onClose()}>Cancel</Button>
-            <Button disabled={invalid || pristine || submitting} color="primary" type="submit">Create</Button>
-          </div>
+            <Button disabled={(!disabled || submitting) && (invalid || pristine || submitting)} color="primary" type="submit">Create</Button>
+          </div>}
         </form>
       </div>
     )
@@ -124,7 +156,7 @@ const handleSubmitForm = (data, dispatch, props) => {
 }
 
 const sinceDate = createSelector(
-  state => getFormValues('AddProjectForm')(state),
+  state => getFormValues('ProjectForm')(state),
   values => values && values.since
 )
 
@@ -133,7 +165,7 @@ const selector = createStructuredSelector({
 })
 
 export default connect(selector)(reduxForm({
-  form: 'AddProjectForm',
+  form: 'ProjectForm',
   validate,
   onSubmit: handleSubmitForm
-})(AddProjectForm))
+})(ProjectForm))

@@ -2,14 +2,15 @@ import { STATUS_ACTIVE, ROLE_ADMIN, ROLE_USER } from '../../../../constants'
 import UserCollection from '../../../../db/users'
 import { normalizeEmailAddress } from '../../../utils/normalize'
 
-async function create(ctx, next) {
+async function create(ctx) {
   const { company: { companyId } } = ctx.state.user
-  const { name: pName, email: pEmail, abilities = [], role } = ctx.request.body
+  const { name: pName, email: pEmail, abilities = [], role, rate: pRate } = ctx.request.body
 
   const name = pName.trim()
   const email = normalizeEmailAddress(pEmail)
+  const rate = Number(pRate)
 
-  if (!name || !email || !abilities.length || role === undefined) {
+  if (!name || !email || !abilities.length || role === undefined || !rate) {
     return ctx.invalidData('Empty Fields')
   }
 
@@ -30,6 +31,8 @@ async function create(ctx, next) {
       password: '',
       status: STATUS_ACTIVE,
       name,
+      rate,
+      abilities,
       email: {
         address: email,
         verified: false

@@ -54,7 +54,19 @@ export const UI = {
       ADD: createActionConstants('UI.MODAL.ABILITY.ADD'),
       EDIT: createActionConstants('UI.MODAL.ABILITY.EDIT'),
       REMOVE: createActionConstants('UI.MODAL.ABILITY.REMOVE')
+    },
+    ACTIVITY: {
+      USER: {
+        ADD: createActionConstants('UI.MODAL.ACTIVITY.USER.ADD')
+      }
     }
+  }
+}
+
+export const ACTIVITY = {
+  ...createActionConstants('ACTIVITY.USER'),
+  USER: {
+    ADD: createActionConstants('ACTIVITY.USER.ADD')
   }
 }
 

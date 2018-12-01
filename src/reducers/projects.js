@@ -23,7 +23,7 @@ export default function projects(state = initialState, action) {
         .set('loading', false)
         .set(
           'data',
-          List(action.payload.projects.map(ability => Map(ability)))
+          List(action.payload.projects.map(project => Map(project)))
         )
     case AUTH.DONE.FAIL:
     case LOGOUT.REQUEST:

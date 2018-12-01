@@ -5,6 +5,7 @@ import config from '../../../../config/server'
 import configureUsers from './users'
 import configureProjects from './projects'
 import configureAbilities from './abilities'
+import configureActivities from './activities'
 
 export function configureSecureApi() {
   const router = Router({
@@ -15,6 +16,7 @@ export function configureSecureApi() {
   router.use(...configureUsers())
   router.use(...configureProjects())
   router.use(...configureAbilities())
+  router.use(...configureActivities())
 
   return router.routes()
 }

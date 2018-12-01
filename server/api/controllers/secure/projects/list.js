@@ -7,8 +7,18 @@ async function list(ctx) {
   try {
     const request = { companyId, status: { $ne: STATUS_DELETED } }
     const projects = await ProjectsCollection.find(request, {
-      projection: { name: 1, description: 1, status: 1, createdAt: 1, modifiedAt: 1, abilities: 1 }
+      projection: {
+        name: 1,
+        description: 1,
+        status: 1,
+        createdAt: 1,
+        modifiedAt: 1,
+        abilities: 1,
+        since: 1,
+        to: 1
+      }
     })
+
     ctx.resolve({
       projects
     })

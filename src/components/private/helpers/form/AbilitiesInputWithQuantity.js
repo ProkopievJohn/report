@@ -143,12 +143,13 @@ class AbilitiesInputWithQuantity extends PureComponent {
       error: customError,
       errorText = null,
       abilities,
+      disabled,
       ...custom
     } = this.props
     const { openModal } = this.state
 
     const { value = [] } = input
-    const values = (value || []).map(v => ({
+    const values = ((abilities.size && value) || []).map(v => ({
       ...v,
       name: abilities.find(a => a.get('_id') === v.abilityId).get('name')
     }))
@@ -159,8 +160,9 @@ class AbilitiesInputWithQuantity extends PureComponent {
       <FormControl {...custom} error={(!!touched && !!error) || !!errorText || customError}>
         <InputLabel shrink>{label}</InputLabel>
         <Input
+          disabled={disabled}
           startAdornment={
-            <IconButton onClick={this.toggleModal}>
+            <IconButton disabled={disabled} onClick={this.toggleModal}>
               <AddIcon />
             </IconButton>
           }
@@ -171,7 +173,8 @@ class AbilitiesInputWithQuantity extends PureComponent {
                   <Chip
                     color="secondary"
                     label={`${v.quantity} ${v.name}`}
-                    onDelete={() => this.handleRemoveAbility(v.abilityId)}
+                    onDelete={!disabled ? () => this.handleRemoveAbility(v.abilityId) : undefined}
+                    variant={!disabled ? 'default' : 'outlined'}
                   />
                 </div>
               ))}
