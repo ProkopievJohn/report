@@ -70,6 +70,14 @@ async function create(ctx) {
     })).ops[0]
 
     ctx.resolve({ activity })
+    ctx.notifyActivity({
+      type: 'create',
+      companyId,
+      activityId: activity._id.toString(),
+      userId: activity.userId,
+      projectId: activity.projectId,
+      abilityId: activity.abilityId
+    })
   } catch (err) {
     ctx.fail('Create Activity Error', err)
   }

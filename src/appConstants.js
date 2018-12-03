@@ -29,6 +29,9 @@ export const SOCKET = {
   ...createActionConstants('SOCKET'),
   CONNECT: createActionConstants('SOCKET.CONNECT'),
   DISCONNECT: createActionConstants('SOCKET.DISCONNECT'),
+  ACTIVITY: {
+    CREATE: createActionConstants('SOCKET.ACTIVITY.CREATE')
+  },
   ABILITY: {
     CREATE: createActionConstants('SOCKET.ABILITY.CREATE'),
     UPDATE: createActionConstants('SOCKET.ABILITY.UPDATE'),
@@ -65,6 +68,7 @@ export const UI = {
 
 export const ACTIVITY = {
   ...createActionConstants('ACTIVITY.USER'),
+  CREATED: createActionConstants('ACTIVITY.CREATED'),
   USER: {
     ADD: createActionConstants('ACTIVITY.USER.ADD')
   }

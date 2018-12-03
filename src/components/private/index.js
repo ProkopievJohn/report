@@ -11,6 +11,7 @@ import Abilities from './Abilities'
 import Users from './Users'
 import Projects from './Projects'
 import ProjectPage from './Projects/ProjectPage'
+import Dashboard from './Dashboard'
 
 class SiderRouters extends PureComponent {
   render() {
@@ -24,7 +25,7 @@ class SiderRouters extends PureComponent {
         <Grid item xs={9}>
           <Paper>
             <Switch>
-              <Route exact path="/" component={() => 'dashboard'} />
+              <Route exact path="/" component={Dashboard} />
               <Route path="/users" component={Users} />
               <Route path="/projects" component={Projects} />
               <Route path="/abilities" component={Abilities} />

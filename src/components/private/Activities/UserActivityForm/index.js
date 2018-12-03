@@ -125,10 +125,17 @@ const handleSubmitForm = (data, dispatch, props) => {
 
 const abilityId = (state, props) => props.abilityId
 
+const usersActivities = createSelector(
+  abilityId,
+  state => state.activities.get('data'),
+  (abilityId, activities) => activities.filter(activity => activity.get('abilityId') === abilityId).map(a => a.get('userId'))
+)
+
 const users = createSelector(
   abilityId,
   state => state.users,
-  (abilityId, users) => users.get('data').filter(u => u.get('abilities').includes(abilityId))
+  usersActivities,
+  (abilityId, users, usersActivities) => users.get('data').filter(u => (u.get('abilities').includes(abilityId) && !usersActivities.includes(u.get('_id'))))
 )
 
 const sinceDate = createSelector(
